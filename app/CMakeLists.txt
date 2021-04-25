@@ -15,9 +15,6 @@ target_link_libraries(
         ${PROJECT_NAME}
 )
 
-enable_testing()
-include(CTest)
-
 add_test(
     NAME
         ${EXECUTABLE_TARGET}
