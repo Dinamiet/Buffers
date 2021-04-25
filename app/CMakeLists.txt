@@ -2,82 +2,13 @@ cmake_minimum_required(VERSION 3.20.0)
 
 
 ################################
-set(EXECUTABLE_TARGET "${PROJECT_NAME}_link_add")
+set(EXECUTABLE_TARGET "${PROJECT_NAME}_linklist")
 add_executable(${EXECUTABLE_TARGET})
 
 target_sources(
     ${EXECUTABLE_TARGET}
     PRIVATE # All private source and header files listed here
-        main_link_add.c
-)
-
-target_link_libraries(
-    ${EXECUTABLE_TARGET}
-    PRIVATE # All external libraries needed for this project.
-        ${PROJECT_NAME}
-)
-
-add_test(
-    NAME
-        ${EXECUTABLE_TARGET}
-    COMMAND
-        ${EXECUTABLE_TARGET}
-)
-
-################################
-set(EXECUTABLE_TARGET "${PROJECT_NAME}_link_remove")
-add_executable(${EXECUTABLE_TARGET})
-
-target_sources(
-    ${EXECUTABLE_TARGET}
-    PRIVATE # All private source and header files listed here
-        main_link_remove.c
-)
-
-target_link_libraries(
-    ${EXECUTABLE_TARGET}
-    PRIVATE # All external libraries needed for this project.
-        ${PROJECT_NAME}
-)
-
-add_test(
-    NAME
-        ${EXECUTABLE_TARGET}
-    COMMAND
-        ${EXECUTABLE_TARGET}
-)
-
-################################
-set(EXECUTABLE_TARGET "${PROJECT_NAME}_buffered_add")
-add_executable(${EXECUTABLE_TARGET})
-
-target_sources(
-    ${EXECUTABLE_TARGET}
-    PRIVATE # All private source and header files listed here
-        main_buffered_add.c
-)
-
-target_link_libraries(
-    ${EXECUTABLE_TARGET}
-    PRIVATE # All external libraries needed for this project.
-        ${PROJECT_NAME}
-)
-
-add_test(
-    NAME
-        ${EXECUTABLE_TARGET}
-    COMMAND
-        ${EXECUTABLE_TARGET}
-)
-
-################################
-set(EXECUTABLE_TARGET "${PROJECT_NAME}_buffered_remove")
-add_executable(${EXECUTABLE_TARGET})
-
-target_sources(
-    ${EXECUTABLE_TARGET}
-    PRIVATE # All private source and header files listed here
-        main_buffered_remove.c
+        main_linklist.c
 )
 
 target_link_libraries(
