@@ -11,16 +11,14 @@ Node* LinkedList_LinkHead(LinkedList* list, Node* node)
 	if (node == NULL)
 		return node;
 
-	if (list->Head)
-	{
-		list->Head->Prev= node;
-		list->Tail->Next= node;
-	}
-	else
+	if (list->Head == NULL)
 	{
 		list->Head= node;
 		list->Tail= node;
 	}
+
+	list->Head->Prev= node;
+	list->Tail->Next= node;
 
 	node->Next= list->Head;
 	node->Prev= list->Tail;
@@ -35,16 +33,14 @@ Node* LinkedList_LinkTail(LinkedList* list, Node* node)
 	if (node == NULL)
 		return node;
 
-	if (list->Tail)
-	{
-		list->Head->Prev= node;
-		list->Tail->Next= node;
-	}
-	else
+	if (list->Tail == NULL)
 	{
 		list->Head= node;
 		list->Tail= node;
 	}
+
+	list->Head->Prev= node;
+	list->Tail->Next= node;
 
 	node->Next= list->Head;
 	node->Prev= list->Tail;
