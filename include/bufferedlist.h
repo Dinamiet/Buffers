@@ -1,3 +1,6 @@
+#ifndef __BUFFEREDLIST_H__
+#define __BUFFEREDLIST_H__
+
 #include "linkedlist.h"
 
 typedef struct _BufferedList
@@ -11,3 +14,5 @@ Node* BufferedList_LinkHead(BufferedList* list, void* data);
 Node* BufferedList_LinkTail(BufferedList* list, void* data);
 Node* BufferedList_UnlinkHead(BufferedList* list);
 Node* BufferedList_UnlinkTail(BufferedList* list);
+
+#endif // __BUFFEREDLIST_H__

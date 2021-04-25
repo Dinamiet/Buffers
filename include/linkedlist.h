@@ -1,10 +1,10 @@
-#ifndef _LINKEDLIST_H_
-#define _LINKEDLIST_H_
+#ifndef __LINKEDLIST_H__
+#define __LINKEDLIST_H__
 
 #include <stdint.h>
 
 #ifndef NULL
-#define NULL 0
+#define NULL 0x0
 #endif
 
 typedef struct _Node
@@ -26,4 +26,4 @@ Node* LinkedList_LinkTail(LinkedList* list, Node* node);
 Node* LinkedList_UnlinkHead(LinkedList* list);
 Node* LinkedList_UnlinkTail(LinkedList* list);
 
-#endif
+#endif // __LINKEDLIST_H__
