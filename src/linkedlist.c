@@ -11,13 +11,19 @@ Node* LinkedList_LinkHead(LinkedList* list, Node* node)
 	if (node == NULL)
 		return node;
 
-	node->Next= list->Head;
-	node->Prev= NULL;
-
 	if (list->Head)
+	{
 		list->Head->Prev= node;
+		list->Tail->Next= node;
+	}
 	else
+	{
+		list->Head= node;
 		list->Tail= node;
+	}
+
+	node->Next= list->Head;
+	node->Prev= list->Tail;
 
 	list->Head= node;
 
@@ -28,14 +34,20 @@ Node* LinkedList_LinkTail(LinkedList* list, Node* node)
 {
 	if (node == NULL)
 		return node;
-		
-	node->Next= NULL;
-	node->Prev= list->Tail;
 
 	if (list->Tail)
+	{
+		list->Head->Prev= node;
 		list->Tail->Next= node;
+	}
 	else
+	{
 		list->Head= node;
+		list->Tail= node;
+	}
+
+	node->Next= list->Head;
+	node->Prev= list->Tail;
 
 	list->Tail= node;
 
@@ -47,12 +59,15 @@ Node* LinkedList_UnlinkHead(LinkedList* list)
 	Node* unlinked= list->Head;
 	if (unlinked)
 	{
-		list->Head= unlinked->Next;
-
-		if (list->Head)
-			list->Head->Prev= NULL;
+		if (list->Head != list->Tail)
+		{
+			list->Head= list->Tail->Next= unlinked->Next;
+			list->Head->Prev= unlinked->Prev;
+		}
 		else
-			list->Tail= NULL;
+		{
+			list->Head = list->Tail = NULL;
+		}
 
 		unlinked->Next= unlinked->Prev= NULL;
 	}
@@ -64,12 +79,15 @@ Node* LinkedList_UnlinkTail(LinkedList* list)
 	Node* unlinked= list->Tail;
 	if (unlinked)
 	{
-		list->Tail= unlinked->Prev;
-
-		if (list->Tail)
-			list->Tail->Next= NULL;
+		if (list->Head != list->Tail)
+		{
+			list->Tail= list->Head->Prev = unlinked->Prev;
+			list->Tail->Next= unlinked->Next;
+		}
 		else
-			list->Head= NULL;
+		{
+			list->Head= list->Tail = NULL;
+		}
 
 		unlinked->Next= unlinked->Prev= NULL;
 	}
