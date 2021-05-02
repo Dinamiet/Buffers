@@ -9,9 +9,9 @@ typedef struct _BufferedList
 	LinkedList Used;
 } BufferedList;
 
-void  BufferedList_Init(BufferedList* list, Node* nodes, uint32_t numNodes);
-Node* BufferedList_LinkHead(BufferedList* list, void* data);
-Node* BufferedList_LinkTail(BufferedList* list, void* data);
+void  BufferedList_Init(BufferedList* list, Node* nodes, uint32_t nodeSize, uint32_t numNodes);
+Node* BufferedList_LinkHead(BufferedList* list);
+Node* BufferedList_LinkTail(BufferedList* list);
 Node* BufferedList_UnlinkHead(BufferedList* list);
 Node* BufferedList_UnlinkTail(BufferedList* list);
 

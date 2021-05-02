@@ -9,9 +9,8 @@
 
 typedef struct _Node
 {
-	struct _Node* Prev;
 	struct _Node* Next;
-	void*		  Data;
+	struct _Node* Prev;
 } Node;
 
 typedef struct _LinkedList
