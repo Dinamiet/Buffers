@@ -4,14 +4,14 @@
 #include <stdint.h>
 
 #ifndef NULL
-#define NULL 0x0
+#	define NULL 0x0
 #endif
 
 typedef struct _Node
 {
 	struct _Node* Prev;
 	struct _Node* Next;
-	void* Data;
+	void*		  Data;
 } Node;
 
 typedef struct _LinkedList
