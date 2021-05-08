@@ -5,16 +5,16 @@
 
 typedef struct
 {
-	Node	 List;
+	Node	 Link;
 	uint32_t Number;
 } DataNode;
 
-int main(int argc, char* argv[])
+int main()
 {
 	DataNode dataNodes[NUM_NODES];
 
 	BufferedList list;
-	BufferedList_Init(&list, (Node*)dataNodes, sizeof(DataNode), NUM_NODES);
+	BufferedList_Init(&list, &dataNodes->Link, sizeof(DataNode), NUM_NODES);
 
 	DataNode* testNode;
 

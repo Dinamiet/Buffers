@@ -6,11 +6,11 @@
 
 typedef struct
 {
-	Node	 List;
+	Node	 Link;
 	uint32_t Number;
 } DataNode;
 
-int main(int argc, char* argv[])
+int main()
 {
 	LinkedList list;
 	LinkedList_Init(&list);
@@ -21,15 +21,15 @@ int main(int argc, char* argv[])
 	for (size_t i = 0; i < NUM_NODES; i++) { dataNodes[i].Number = i; }
 
 	// Add nodes to front
-	LinkedList_LinkHead(&list, (Node*)&dataNodes[3]);
-	LinkedList_LinkHead(&list, (Node*)&dataNodes[2]);
-	LinkedList_LinkHead(&list, (Node*)&dataNodes[1]);
-	LinkedList_LinkHead(&list, (Node*)&dataNodes[0]);
+	LinkedList_LinkHead(&list, &dataNodes[3].Link);
+	LinkedList_LinkHead(&list, &dataNodes[2].Link);
+	LinkedList_LinkHead(&list, &dataNodes[1].Link);
+	LinkedList_LinkHead(&list, &dataNodes[0].Link);
 
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[4]);
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[5]);
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[6]);
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[7]);
+	LinkedList_LinkTail(&list, &dataNodes[4].Link);
+	LinkedList_LinkTail(&list, &dataNodes[5].Link);
+	LinkedList_LinkTail(&list, &dataNodes[6].Link);
+	LinkedList_LinkTail(&list, &dataNodes[7].Link);
 
 	DataNode* testNode;
 
@@ -75,28 +75,28 @@ int main(int argc, char* argv[])
 		return 5;
 
 	// 6
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[9]);
+	LinkedList_LinkTail(&list, &dataNodes[9].Link);
 	testNode = (DataNode*)LinkedList_UnlinkHead(&list);
 	if (!testNode)
 		return 6;
 	if (testNode->Number != 9)
 		return 6;
 
-	LinkedList_LinkHead(&list, (Node*)&dataNodes[8]);
+	LinkedList_LinkHead(&list, &dataNodes[8].Link);
 	testNode = (DataNode*)LinkedList_UnlinkHead(&list);
 	if (!testNode)
 		return 6;
 	if (testNode->Number != 8)
 		return 6;
 
-	LinkedList_LinkHead(&list, (Node*)&dataNodes[2]);
+	LinkedList_LinkHead(&list, &dataNodes[2].Link);
 	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
 	if (!testNode)
 		return 6;
 	if (testNode->Number != 2)
 		return 6;
 
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[0]);
+	LinkedList_LinkTail(&list, &dataNodes[0].Link);
 	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
 	if (!testNode)
 		return 6;
@@ -105,11 +105,11 @@ int main(int argc, char* argv[])
 
 	// Checking itteration
 	// populate list
-	LinkedList_LinkHead(&list, (Node*)&dataNodes[0]);
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[2]);
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[4]);
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[6]);
-	LinkedList_LinkTail(&list, (Node*)&dataNodes[8]);
+	LinkedList_LinkHead(&list, &dataNodes[0].Link);
+	LinkedList_LinkTail(&list, &dataNodes[2].Link);
+	LinkedList_LinkTail(&list, &dataNodes[4].Link);
+	LinkedList_LinkTail(&list, &dataNodes[6].Link);
+	LinkedList_LinkTail(&list, &dataNodes[8].Link);
 
 	// Checking forward links
 	testNode = (DataNode*)list.Head;
@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
 		if (testNode->Number != i)
 			return 7;
 
-		testNode = (DataNode*)testNode->List.Next;
+		testNode = (DataNode*)testNode->Link.Next;
 	}
 
 	if (testNode != (DataNode*)list.Head)
@@ -132,17 +132,17 @@ int main(int argc, char* argv[])
 	{
 		if (testNode == NULL)
 			return 8;
-		if (testNode->Number != i)
+		if (testNode->Number != (uint32_t)i)
 			return 8;
 
-		testNode = (DataNode*)testNode->List.Prev;
+		testNode = (DataNode*)testNode->Link.Prev;
 	}
 
 	if (testNode != (DataNode*)list.Tail)
 		return 8;
 
 	testNode = (DataNode*)LinkedList_UnlinkHead(&list);
-	LinkedList_LinkTail(&list, (Node*)testNode);
+	LinkedList_LinkTail(&list, &testNode->Link);
 
 	// Checking forward links
 	testNode = (DataNode*)list.Head->Prev;
@@ -153,7 +153,7 @@ int main(int argc, char* argv[])
 		if (testNode->Number != i)
 			return 9;
 
-		testNode = (DataNode*)testNode->List.Next;
+		testNode = (DataNode*)testNode->Link.Next;
 	}
 
 	// Checking backward links
@@ -162,10 +162,10 @@ int main(int argc, char* argv[])
 	{
 		if (testNode == NULL)
 			return 10;
-		if (testNode->Number != i)
+		if (testNode->Number != (uint32_t)i)
 			return 10;
 
-		testNode = (DataNode*)testNode->List.Prev;
+		testNode = (DataNode*)testNode->Link.Prev;
 	}
 
 	return 0;

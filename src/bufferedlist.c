@@ -7,7 +7,7 @@ void BufferedList_Init(BufferedList* list, Node* nodes, uint32_t nodeSize, uint3
 
 	for (uint32_t i = 0; i < numNodes; i++)
 	{
-		Node* node = ((void*)nodes) + nodeSize * i;
+		Node* node = (Node*)(((uint8_t*)nodes) + nodeSize * i);
 		LinkedList_LinkTail(&list->Free, node);
 	}
 }
