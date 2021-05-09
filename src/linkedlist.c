@@ -64,6 +64,8 @@ Node* LinkedList_LinkBefore(LinkedList* list, Node* beforeNode, Node* node)
 
 Node* LinkedList_UnlinkNode(LinkedList* list, Node* node)
 {
+	if (node == NULL)
+		return NULL;
 	if (list->Head == node && list->Tail == node)
 	{
 		list->Head = list->Tail = NULL;
