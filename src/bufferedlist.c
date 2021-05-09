@@ -35,3 +35,21 @@ Node* BufferedList_UnlinkTail(BufferedList* list)
 	Node* tmp = LinkedList_UnlinkTail(&list->Used);
 	return LinkedList_LinkTail(&list->Free, tmp);
 }
+
+Node* BufferedList_LinkAfter(BufferedList* list, Node* afterNode)
+{
+	Node* tmp = LinkedList_UnlinkHead(&list->Free);
+	return LinkedList_LinkAfter(&list->Used, afterNode, tmp);
+}
+
+Node* BufferedList_LinkBefore(BufferedList* list, Node* beforeNode)
+{
+	Node* tmp = LinkedList_UnlinkHead(&list->Free);
+	return LinkedList_LinkBefore(&list->Used, beforeNode, tmp);
+}
+
+Node* BufferedList_UnlinkNode(BufferedList* list, Node* node)
+{
+	Node* tmp = LinkedList_UnlinkNode(&list->Used, node);
+	return LinkedList_LinkTail(&list->Free, tmp);
+}
