@@ -2,7 +2,8 @@
 
 #include <stdio.h>
 
-#define NUM_NODES 10
+#define NUM_NODES		 10
+#define TEST_BUFFER_SIZE 5
 
 typedef struct
 {
@@ -111,5 +112,118 @@ int main()
 	if (testNode != NULL)
 		return 10;
 
+	// Testing node unlink which is not on head or tail
+	testNode		  = (DataNode*)BufferedList_LinkTail(&list);
+	DataNode* delete1 = testNode;
+	testNode->Number  = 5;
+	testNode		  = (DataNode*)BufferedList_LinkTail(&list);
+	DataNode* delete3 = testNode;
+	testNode->Number  = 10;
+	testNode		  = (DataNode*)BufferedList_LinkHead(&list);
+	DataNode* delete2 = testNode;
+	testNode->Number  = 2;
+	testNode		  = (DataNode*)BufferedList_LinkTail(&list);
+	testNode->Number  = 15;
+	testNode		  = (DataNode*)BufferedList_LinkHead(&list);
+	testNode->Number  = 0;
+
+	uint32_t testBuffer[TEST_BUFFER_SIZE] = {0, 2, 5, 10, 15};
+	testNode							  = (DataNode*)list.Used.Head;
+	for (size_t i = 0; i < 2 * TEST_BUFFER_SIZE; i++)
+	{
+		if (testNode->Number != testBuffer[i % TEST_BUFFER_SIZE])
+		{
+			return 10 + i;
+		}
+		testNode = (DataNode*)testNode->Link.Next;
+	}
+
+	testNode = (DataNode*)BufferedList_UnlinkNode(&list, &delete1->Link);
+	if (testNode != delete1)
+	{
+		return 20;
+	}
+	if (testNode->Number != 5)
+	{
+		return 20;
+	}
+
+	testNode = (DataNode*)list.Used.Head;
+	for (size_t i = 0; i < 2 * TEST_BUFFER_SIZE; i++)
+	{
+		if (testBuffer[i % TEST_BUFFER_SIZE] == 5)
+			continue;
+		if (testNode->Number != testBuffer[i % TEST_BUFFER_SIZE])
+		{
+			return 20 + i;
+		}
+		testNode = (DataNode*)testNode->Link.Next;
+	}
+
+	testNode = (DataNode*)BufferedList_UnlinkNode(&list, &delete2->Link);
+	if (testNode != delete2)
+	{
+		return 30;
+	}
+	if (testNode->Number != 2)
+	{
+		return 30;
+	}
+
+	testNode = (DataNode*)list.Used.Head;
+	for (size_t i = 0; i < 2 * TEST_BUFFER_SIZE; i++)
+	{
+		if (testBuffer[i % TEST_BUFFER_SIZE] == 5 || testBuffer[i % TEST_BUFFER_SIZE] == 2)
+			continue;
+		if (testNode->Number != testBuffer[i % TEST_BUFFER_SIZE])
+		{
+			return 30 + i;
+		}
+		testNode = (DataNode*)testNode->Link.Next;
+	}
+
+	testNode = (DataNode*)BufferedList_UnlinkNode(&list, &delete3->Link);
+	if (testNode != delete3)
+	{
+		return 40;
+	}
+	if (testNode->Number != 10)
+	{
+		return 40;
+	}
+
+	testNode = (DataNode*)list.Used.Head;
+	for (size_t i = 0; i < 2 * TEST_BUFFER_SIZE; i++)
+	{
+		if (testBuffer[i % TEST_BUFFER_SIZE] == 5 || testBuffer[i % TEST_BUFFER_SIZE] == 2 || testBuffer[i % TEST_BUFFER_SIZE] == 10)
+			continue;
+		if (testNode->Number != testBuffer[i % TEST_BUFFER_SIZE])
+		{
+			return 40 + i;
+		}
+		testNode = (DataNode*)testNode->Link.Next;
+	}
+
+	testNode = (DataNode*)BufferedList_UnlinkNode(&list, list.Used.Head);
+	if (testNode == (DataNode*)list.Used.Head)
+	{
+		return 40;
+	}
+	if (testNode->Number != 0)
+	{
+		return 40;
+	}
+
+	testNode = (DataNode*)list.Used.Head;
+	for (size_t i = 0; i < 3; i++)
+	{
+		if (testNode->Number != testBuffer[TEST_BUFFER_SIZE - 1])
+		{
+			return 40 + i;
+		}
+		testNode = (DataNode*)testNode->Link.Next;
+	}
+
+	printf("SUCC\n");
 	return 0;
 }
