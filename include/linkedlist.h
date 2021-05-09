@@ -24,5 +24,8 @@ Node* LinkedList_LinkHead(LinkedList* list, Node* node);
 Node* LinkedList_LinkTail(LinkedList* list, Node* node);
 Node* LinkedList_UnlinkHead(LinkedList* list);
 Node* LinkedList_UnlinkTail(LinkedList* list);
+Node* LinkedList_LinkAfter(LinkedList* list, Node* afterNode, Node* node);
+Node* LinkedList_LinkBefore(LinkedList* list, Node* beforeNode, Node* node);
+Node* LinkedList_UnlinkNode(LinkedList* list, Node* node);
 
 #endif // __LINKEDLIST_H__
