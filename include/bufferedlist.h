@@ -14,5 +14,8 @@ Node* BufferedList_LinkHead(BufferedList* list);
 Node* BufferedList_LinkTail(BufferedList* list);
 Node* BufferedList_UnlinkHead(BufferedList* list);
 Node* BufferedList_UnlinkTail(BufferedList* list);
+Node* BufferedList_LinkAfter(BufferedList* list, Node* afterNode);
+Node* BufferedList_LinkBefore(BufferedList* list, Node* beforeNode);
+Node* BufferedList_UnlinkNode(BufferedList* list, Node* node);
 
 #endif // __BUFFEREDLIST_H__
