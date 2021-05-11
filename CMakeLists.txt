@@ -4,6 +4,8 @@ project(
     LinkedLists
 )
 
+if (NOT TARGET ${PROJECT_NAME})
+
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
     # Let's nicely support folders in IDEs
@@ -37,3 +39,5 @@ target_sources(
         src/linkedlist.c
         src/bufferedlist.c
 )
+
+endif()
