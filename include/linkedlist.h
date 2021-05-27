@@ -28,4 +28,4 @@ Node* LinkedList_LinkAfter(LinkedList* list, Node* afterNode, Node* node);
 Node* LinkedList_LinkBefore(LinkedList* list, Node* beforeNode, Node* node);
 Node* LinkedList_UnlinkNode(LinkedList* list, Node* node);
 
-#endif // __LINKEDLIST_H__
+#endif

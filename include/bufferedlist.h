@@ -18,4 +18,4 @@ Node* BufferedList_LinkAfter(BufferedList* list, Node* afterNode);
 Node* BufferedList_LinkBefore(BufferedList* list, Node* beforeNode);
 Node* BufferedList_UnlinkNode(BufferedList* list, Node* node);
 
-#endif // __BUFFEREDLIST_H__
+#endif
