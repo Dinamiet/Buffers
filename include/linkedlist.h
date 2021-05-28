@@ -1,11 +1,8 @@
 #ifndef __LINKEDLIST_H__
 #define __LINKEDLIST_H__
 
+#include <stddef.h>
 #include <stdint.h>
-
-#ifndef NULL
-#	define NULL 0x0
-#endif
 
 typedef struct _Node
 {
