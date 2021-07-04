@@ -36,10 +36,12 @@ target_sources(
         include/linkedlist.h
         include/bufferedlist.h
         include/queuebuffer.h
+        include/stackbuffer.h
     PRIVATE # All private source and header files listed here
         src/linkedlist.c
         src/bufferedlist.c
         src/queuebuffer.c
+        src/stackbuffer.c
 )
 
 endif()
