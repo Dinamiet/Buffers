@@ -35,9 +35,11 @@ target_sources(
     PUBLIC  # All public source and header files listed here
         include/linkedlist.h
         include/bufferedlist.h
+        include/ringbuffer.h
     PRIVATE # All private source and header files listed here
         src/linkedlist.c
         src/bufferedlist.c
+        src/ringbuffer.c
 )
 
 endif()
