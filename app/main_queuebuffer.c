@@ -17,11 +17,11 @@ int main()
 		return 1;
 
 	item= 10;
-	if (!QueueBuffer_Insert(&QueueBuffer, (void*)&item))
+	if (!QueueBuffer_Add(&QueueBuffer, (void*)&item))
 		return 2;
 
 	item= 20;
-	if (!QueueBuffer_Insert(&QueueBuffer, (void*)&item))
+	if (!QueueBuffer_Add(&QueueBuffer, (void*)&item))
 		return 3;
 
 	if (!QueueBuffer_Remove(&QueueBuffer, (void*)&item))
@@ -37,12 +37,12 @@ int main()
 	for (size_t i = 0; i < NUM_NODES; i++)
 	{
 		item= 100*i;
-		if (!QueueBuffer_Insert(&QueueBuffer, (void*)&item))
+		if (!QueueBuffer_Add(&QueueBuffer, (void*)&item))
 			return 100+i;
 	}
 
 	item= 20;
-	if (QueueBuffer_Insert(&QueueBuffer, (void*)&item))
+	if (QueueBuffer_Add(&QueueBuffer, (void*)&item))
 		return 3;
 
 	for (size_t i = 0; i < NUM_NODES; i++)

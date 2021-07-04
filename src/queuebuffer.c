@@ -12,7 +12,7 @@ void QueueBuffer_Init(QueueBuffer* queue, void* buff, uint32_t elementSize, uint
 	queue->Empty= true;
 }
 
-bool QueueBuffer_Insert(QueueBuffer* queue, void* element)
+bool QueueBuffer_Add(QueueBuffer* queue, void* element)
 {
 	if (queue->Full)
 		return false;
