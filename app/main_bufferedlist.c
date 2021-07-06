@@ -21,82 +21,82 @@ int main()
 	DataNode* testNode;
 
 	// Unlink with empty list
-	testNode = (DataNode*)BufferedList_UnlinkHead(&list);
+	testNode = BufferedList_UnlinkHead(&list);
 	if (testNode != NULL)
 		return 1;
 
 	// Unlink with empty list
-	testNode = (DataNode*)BufferedList_UnlinkTail(&list);
+	testNode = BufferedList_UnlinkTail(&list);
 	if (testNode != NULL)
 		return 1;
 
 	// Add data to buffer tail
-	testNode		 = (DataNode*)BufferedList_LinkTail(&list);
+	testNode		 = BufferedList_LinkTail(&list);
 	testNode->Number = 80;
 
 	// Add data to buffer head
-	testNode		 = (DataNode*)BufferedList_LinkHead(&list);
+	testNode		 = BufferedList_LinkHead(&list);
 	testNode->Number = 50;
 
 	// Add data to buffer to tail
-	testNode		 = (DataNode*)BufferedList_LinkTail(&list);
+	testNode		 = BufferedList_LinkTail(&list);
 	testNode->Number = 20;
 
 	// Add data to buffer head
-	testNode		 = (DataNode*)BufferedList_LinkHead(&list);
+	testNode		 = BufferedList_LinkHead(&list);
 	testNode->Number = 10;
 
 	// Check if unlinking is correct
-	testNode = (DataNode*)BufferedList_UnlinkHead(&list);
+	testNode = BufferedList_UnlinkHead(&list);
 	if (testNode == NULL)
 		return 2;
 	if (testNode->Number != 10)
 		return 2;
 
-	testNode = (DataNode*)BufferedList_UnlinkHead(&list);
+	testNode = BufferedList_UnlinkHead(&list);
 	if (testNode == NULL)
 		return 3;
 	if (testNode->Number != 50)
 		return 3;
 
-	testNode = (DataNode*)BufferedList_UnlinkTail(&list);
+	testNode = BufferedList_UnlinkTail(&list);
 	if (testNode == NULL)
 		return 4;
 	if (testNode->Number != 20)
 		return 4;
 
-	testNode = (DataNode*)BufferedList_UnlinkTail(&list);
+	testNode = BufferedList_UnlinkTail(&list);
 	if (testNode == NULL)
 		return 5;
 	if (testNode->Number != 80)
 		return 5;
 
 	//Check if list is empty
-	testNode = (DataNode*)BufferedList_UnlinkTail(&list);
+	testNode = BufferedList_UnlinkTail(&list);
 	if (testNode != NULL)
 		return 6;
 
 	for (size_t i = 0; i < NUM_NODES; i++)
 	{
-		testNode = (DataNode*)BufferedList_LinkTail(&list);
+		testNode = BufferedList_LinkTail(&list);
 		if (testNode == NULL)
 			return 7;
 		testNode->Number = i;
 	}
 
 	// Should not be able to add this one
-	testNode = (DataNode*)BufferedList_LinkTail(&list);
+	testNode = BufferedList_LinkTail(&list);
 	if (testNode != NULL)
 		return 8;
 
-	testNode = (DataNode*)BufferedList_LinkHead(&list);
+	testNode = BufferedList_LinkHead(&list);
 	if (testNode != NULL)
 		return 8;
 
 	// Empty buffer again
 	for (size_t i = 0; i < NUM_NODES; i++)
 	{
-		testNode = (DataNode*)BufferedList_UnlinkHead(&list);
+		testNode = BufferedList_UnlinkHead(&list);
 		if (testNode == NULL)
 			return 9;
 		if (testNode->Number != i)
@@ -104,31 +104,32 @@ int main()
 	}
 
 	//Buffer should be empty
-	testNode = (DataNode*)BufferedList_UnlinkHead(&list);
+	testNode = BufferedList_UnlinkHead(&list);
 	if (testNode != NULL)
 		return 10;
 
-	testNode = (DataNode*)BufferedList_UnlinkTail(&list);
+	testNode = BufferedList_UnlinkTail(&list);
 	if (testNode != NULL)
 		return 10;
 
 	// Testing node unlink which is not on head or tail
-	testNode		  = (DataNode*)BufferedList_LinkTail(&list);
+	testNode		  = BufferedList_LinkTail(&list);
 	DataNode* delete1 = testNode;
 	testNode->Number  = 5;
-	testNode		  = (DataNode*)BufferedList_LinkTail(&list);
+	testNode		  = BufferedList_LinkTail(&list);
 	DataNode* delete3 = testNode;
 	testNode->Number  = 10;
-	testNode		  = (DataNode*)BufferedList_LinkHead(&list);
+	testNode		  = BufferedList_LinkHead(&list);
 	DataNode* delete2 = testNode;
 	testNode->Number  = 2;
-	testNode		  = (DataNode*)BufferedList_LinkTail(&list);
+	testNode		  = BufferedList_LinkTail(&list);
 	testNode->Number  = 15;
-	testNode		  = (DataNode*)BufferedList_LinkHead(&list);
+	testNode		  = BufferedList_LinkHead(&list);
 	testNode->Number  = 0;
 
 	uint32_t testBuffer[TEST_BUFFER_SIZE] = {0, 2, 5, 10, 15};
-	testNode							  = (DataNode*)list.Used.Head;
+
+	testNode = (DataNode*)list.Used.Head;
 	for (size_t i = 0; i < 2 * TEST_BUFFER_SIZE; i++)
 	{
 		if (testNode->Number != testBuffer[i % TEST_BUFFER_SIZE])
@@ -138,7 +139,7 @@ int main()
 		testNode = (DataNode*)testNode->Link.Next;
 	}
 
-	testNode = (DataNode*)BufferedList_UnlinkNode(&list, &delete1->Link);
+	testNode = BufferedList_UnlinkNode(&list, &delete1->Link);
 	if (testNode != delete1)
 	{
 		return 20;
@@ -160,7 +161,7 @@ int main()
 		testNode = (DataNode*)testNode->Link.Next;
 	}
 
-	testNode = (DataNode*)BufferedList_UnlinkNode(&list, &delete2->Link);
+	testNode = BufferedList_UnlinkNode(&list, &delete2->Link);
 	if (testNode != delete2)
 	{
 		return 30;
@@ -182,7 +183,7 @@ int main()
 		testNode = (DataNode*)testNode->Link.Next;
 	}
 
-	testNode = (DataNode*)BufferedList_UnlinkNode(&list, &delete3->Link);
+	testNode = BufferedList_UnlinkNode(&list, &delete3->Link);
 	if (testNode != delete3)
 	{
 		return 40;
@@ -204,7 +205,7 @@ int main()
 		testNode = (DataNode*)testNode->Link.Next;
 	}
 
-	testNode = (DataNode*)BufferedList_UnlinkNode(&list, list.Used.Head);
+	testNode = BufferedList_UnlinkNode(&list, list.Used.Head);
 	if (testNode == (DataNode*)list.Used.Head)
 	{
 		return 40;

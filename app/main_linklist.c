@@ -34,70 +34,70 @@ int main()
 	DataNode* testNode;
 
 	//Test 1;
-	testNode = (DataNode*)LinkedList_UnlinkHead(&list);
+	testNode = LinkedList_UnlinkHead(&list);
 	if (!testNode)
 		return 1;
 	if (testNode->Number != 0)
 		return 1;
 
 	// 2
-	testNode = (DataNode*)LinkedList_UnlinkHead(&list);
+	testNode = LinkedList_UnlinkHead(&list);
 	if (!testNode)
 		return 2;
 	if (testNode->Number != 1)
 		return 2;
 
 	// 3
-	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
+	testNode = LinkedList_UnlinkTail(&list);
 	if (!testNode)
 		return 3;
 	if (testNode->Number != 7)
 		return 3;
 
 	// 4
-	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
-	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
-	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
-	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
-	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
+	testNode = LinkedList_UnlinkTail(&list);
+	testNode = LinkedList_UnlinkTail(&list);
+	testNode = LinkedList_UnlinkTail(&list);
+	testNode = LinkedList_UnlinkTail(&list);
+	testNode = LinkedList_UnlinkTail(&list);
 	if (!testNode)
 		return 4;
 	if (testNode->Number != 2)
 		return 4;
 
 	// 5
-	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
+	testNode = LinkedList_UnlinkTail(&list);
 	if (testNode != NULL)
 		return 5;
 
-	testNode = (DataNode*)LinkedList_UnlinkHead(&list);
+	testNode = LinkedList_UnlinkHead(&list);
 	if (testNode != NULL)
 		return 5;
 
 	// 6
 	LinkedList_LinkTail(&list, &dataNodes[9].Link);
-	testNode = (DataNode*)LinkedList_UnlinkHead(&list);
+	testNode = LinkedList_UnlinkHead(&list);
 	if (!testNode)
 		return 6;
 	if (testNode->Number != 9)
 		return 6;
 
 	LinkedList_LinkHead(&list, &dataNodes[8].Link);
-	testNode = (DataNode*)LinkedList_UnlinkHead(&list);
+	testNode = LinkedList_UnlinkHead(&list);
 	if (!testNode)
 		return 6;
 	if (testNode->Number != 8)
 		return 6;
 
 	LinkedList_LinkHead(&list, &dataNodes[2].Link);
-	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
+	testNode = LinkedList_UnlinkTail(&list);
 	if (!testNode)
 		return 6;
 	if (testNode->Number != 2)
 		return 6;
 
 	LinkedList_LinkTail(&list, &dataNodes[0].Link);
-	testNode = (DataNode*)LinkedList_UnlinkTail(&list);
+	testNode = LinkedList_UnlinkTail(&list);
 	if (!testNode)
 		return 6;
 	if (testNode->Number != 0)
@@ -141,7 +141,7 @@ int main()
 	if (testNode != (DataNode*)list.Tail)
 		return 8;
 
-	testNode = (DataNode*)LinkedList_UnlinkHead(&list);
+	testNode = LinkedList_UnlinkHead(&list);
 	LinkedList_LinkTail(&list, &testNode->Link);
 
 	// Checking forward links

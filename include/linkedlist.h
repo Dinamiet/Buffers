@@ -17,12 +17,12 @@ typedef struct _LinkedList
 } LinkedList;
 
 void  LinkedList_Init(LinkedList* list);
-Node* LinkedList_LinkHead(LinkedList* list, Node* node);
-Node* LinkedList_LinkTail(LinkedList* list, Node* node);
-Node* LinkedList_UnlinkHead(LinkedList* list);
-Node* LinkedList_UnlinkTail(LinkedList* list);
-Node* LinkedList_LinkAfter(LinkedList* list, Node* afterNode, Node* node);
-Node* LinkedList_LinkBefore(LinkedList* list, Node* beforeNode, Node* node);
-Node* LinkedList_UnlinkNode(LinkedList* list, Node* node);
+void* LinkedList_LinkHead(LinkedList* list, void* node);
+void* LinkedList_LinkTail(LinkedList* list, void* node);
+void* LinkedList_UnlinkHead(LinkedList* list);
+void* LinkedList_UnlinkTail(LinkedList* list);
+void* LinkedList_LinkAfter(LinkedList* list, void* afterNode, void* node);
+void* LinkedList_LinkBefore(LinkedList* list, void* beforeNode, void* node);
+void* LinkedList_UnlinkNode(LinkedList* list, void* node);
 
 #endif

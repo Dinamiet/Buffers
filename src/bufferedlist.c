@@ -1,6 +1,6 @@
 #include "bufferedlist.h"
 
-void BufferedList_Init(BufferedList* list, Node* nodes, uint32_t nodeSize, uint32_t numNodes)
+void BufferedList_Init(BufferedList* list, void* nodes, uint32_t nodeSize, uint32_t numNodes)
 {
 	LinkedList_Init(&list->Free);
 	LinkedList_Init(&list->Used);
@@ -12,43 +12,43 @@ void BufferedList_Init(BufferedList* list, Node* nodes, uint32_t nodeSize, uint3
 	}
 }
 
-Node* BufferedList_LinkHead(BufferedList* list)
+void* BufferedList_LinkHead(BufferedList* list)
 {
 	Node* tmp = LinkedList_UnlinkHead(&list->Free);
 	return LinkedList_LinkHead(&list->Used, tmp);
 }
 
-Node* BufferedList_LinkTail(BufferedList* list)
+void* BufferedList_LinkTail(BufferedList* list)
 {
 	Node* tmp = LinkedList_UnlinkHead(&list->Free);
 	return LinkedList_LinkTail(&list->Used, tmp);
 }
 
-Node* BufferedList_UnlinkHead(BufferedList* list)
+void* BufferedList_UnlinkHead(BufferedList* list)
 {
 	Node* tmp = LinkedList_UnlinkHead(&list->Used);
 	return LinkedList_LinkTail(&list->Free, tmp);
 }
 
-Node* BufferedList_UnlinkTail(BufferedList* list)
+void* BufferedList_UnlinkTail(BufferedList* list)
 {
 	Node* tmp = LinkedList_UnlinkTail(&list->Used);
 	return LinkedList_LinkTail(&list->Free, tmp);
 }
 
-Node* BufferedList_LinkAfter(BufferedList* list, Node* afterNode)
+void* BufferedList_LinkAfter(BufferedList* list, void* afterNode)
 {
 	Node* tmp = LinkedList_UnlinkHead(&list->Free);
 	return LinkedList_LinkAfter(&list->Used, afterNode, tmp);
 }
 
-Node* BufferedList_LinkBefore(BufferedList* list, Node* beforeNode)
+void* BufferedList_LinkBefore(BufferedList* list, void* beforeNode)
 {
 	Node* tmp = LinkedList_UnlinkHead(&list->Free);
 	return LinkedList_LinkBefore(&list->Used, beforeNode, tmp);
 }
 
-Node* BufferedList_UnlinkNode(BufferedList* list, Node* node)
+void* BufferedList_UnlinkNode(BufferedList* list, void* node)
 {
 	Node* tmp = LinkedList_UnlinkNode(&list->Used, node);
 	return LinkedList_LinkTail(&list->Free, tmp);

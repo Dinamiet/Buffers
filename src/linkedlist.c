@@ -6,26 +6,33 @@ void LinkedList_Init(LinkedList* list)
 	list->Tail = NULL;
 }
 
-Node* LinkedList_LinkHead(LinkedList* list, Node* node)
+void* LinkedList_LinkHead(LinkedList* list, void* _node)
 {
+	Node* node = (Node*)_node;
+
 	if (list->Head == NULL && list->Tail == NULL)
 		return list->Head = list->Tail = node->Next = node->Prev = node;
 	return LinkedList_LinkBefore(list, list->Head, node);
 }
 
-Node* LinkedList_LinkTail(LinkedList* list, Node* node)
+void* LinkedList_LinkTail(LinkedList* list, void* _node)
 {
+	Node* node = (Node*)_node;
+
 	if (list->Head == NULL && list->Tail == NULL)
 		return list->Head = list->Tail = node->Next = node->Prev = node;
 	return LinkedList_LinkAfter(list, list->Tail, node);
 }
 
-Node* LinkedList_UnlinkHead(LinkedList* list) { return LinkedList_UnlinkNode(list, list->Head); }
+void* LinkedList_UnlinkHead(LinkedList* list) { return LinkedList_UnlinkNode(list, list->Head); }
 
-Node* LinkedList_UnlinkTail(LinkedList* list) { return LinkedList_UnlinkNode(list, list->Tail); }
+void* LinkedList_UnlinkTail(LinkedList* list) { return LinkedList_UnlinkNode(list, list->Tail); }
 
-Node* LinkedList_LinkAfter(LinkedList* list, Node* afterNode, Node* node)
+void* LinkedList_LinkAfter(LinkedList* list, void* _afterNode, void* _node)
 {
+	Node* node = (Node*)_node;
+	Node* afterNode = (Node*)_afterNode;
+
 	if (afterNode == NULL || node == NULL)
 	{
 		return NULL;
@@ -45,8 +52,11 @@ Node* LinkedList_LinkAfter(LinkedList* list, Node* afterNode, Node* node)
 	return node;
 }
 
-Node* LinkedList_LinkBefore(LinkedList* list, Node* beforeNode, Node* node)
+void* LinkedList_LinkBefore(LinkedList* list, void* _beforeNode, void* _node)
 {
+	Node* node = (Node*)_node;
+	Node* beforeNode= (Node*)_beforeNode;
+
 	if (beforeNode == NULL || node == NULL)
 	{
 		return NULL;
@@ -66,8 +76,10 @@ Node* LinkedList_LinkBefore(LinkedList* list, Node* beforeNode, Node* node)
 	return node;
 }
 
-Node* LinkedList_UnlinkNode(LinkedList* list, Node* node)
+void* LinkedList_UnlinkNode(LinkedList* list, void* _node)
 {
+	Node* node = (Node*)_node;
+
 	if (node == NULL)
 		return NULL;
 
