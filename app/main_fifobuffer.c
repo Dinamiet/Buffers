@@ -11,7 +11,7 @@ int main()
 	uint32_t	buffer[NUM_NODES] = {0};
 	uint32_t*	item= NULL;
 
-	FifoBuffer_Init(&queue, (void*)buffer, sizeof(buffer[0]), NUM_NODES);
+	FifoBuffer_Init(&queue, buffer, sizeof(buffer[0]), NUM_NODES);
 
 	item= FifoBuffer_Remove(&queue);
 	if (item != NULL)

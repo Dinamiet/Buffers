@@ -61,7 +61,7 @@ target_compile_options(${EXECUTABLE_TARGET} PRIVATE -Wall -Wextra -Wpedantic -We
 target_sources(
     ${EXECUTABLE_TARGET}
     PRIVATE # All private source and header files listed here
-        main_queuebuffer.c
+        main_fifobuffer.c
 )
 
 target_link_libraries(
