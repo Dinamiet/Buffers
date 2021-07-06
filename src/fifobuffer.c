@@ -4,13 +4,13 @@
 
 void FifoBuffer_Init(FifoBuffer* fifo, void* buff, uint32_t elementSize, uint32_t numElements)
 {
-	fifo->Buffer	   = buff;
+	fifo->Buffer	  = buff;
 	fifo->ElementSize = elementSize;
 	fifo->NumElements = numElements;
-	fifo->Head		   = 0;
-	fifo->Tail		   = 0;
-	fifo->Full		   = false;
-	fifo->Empty	   = true;
+	fifo->Head		  = 0;
+	fifo->Tail		  = 0;
+	fifo->Full		  = false;
+	fifo->Empty		  = true;
 }
 
 void* FifoBuffer_Add(FifoBuffer* fifo)
@@ -23,7 +23,7 @@ void* FifoBuffer_Add(FifoBuffer* fifo)
 	if (++fifo->Head >= fifo->NumElements) // Wrap around at buffer end
 		fifo->Head = 0;
 
-	fifo->Full	 = fifo->Head == fifo->Tail;
+	fifo->Full	= fifo->Head == fifo->Tail;
 	fifo->Empty = false; // Cannot be empty - just added element
 
 	return (uint8_t*)fifo->Buffer + offset;
@@ -40,7 +40,7 @@ void* FifoBuffer_Remove(FifoBuffer* fifo)
 		fifo->Tail = 0;
 
 	fifo->Empty = fifo->Head == fifo->Tail;
-	fifo->Full	 = false; // Cannot be full - just removed element
+	fifo->Full	= false; // Cannot be full - just removed element
 
 	return (uint8_t*)fifo->Buffer + offset;
 }

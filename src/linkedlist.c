@@ -30,7 +30,7 @@ void* LinkedList_UnlinkTail(LinkedList* list) { return LinkedList_UnlinkNode(lis
 
 void* LinkedList_LinkAfter(LinkedList* list, void* _afterNode, void* _node)
 {
-	Node* node = (Node*)_node;
+	Node* node		= (Node*)_node;
 	Node* afterNode = (Node*)_afterNode;
 
 	if (afterNode == NULL || node == NULL)
@@ -54,8 +54,8 @@ void* LinkedList_LinkAfter(LinkedList* list, void* _afterNode, void* _node)
 
 void* LinkedList_LinkBefore(LinkedList* list, void* _beforeNode, void* _node)
 {
-	Node* node = (Node*)_node;
-	Node* beforeNode= (Node*)_beforeNode;
+	Node* node		 = (Node*)_node;
+	Node* beforeNode = (Node*)_beforeNode;
 
 	if (beforeNode == NULL || node == NULL)
 	{

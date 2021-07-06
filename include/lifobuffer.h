@@ -14,7 +14,7 @@ typedef struct
 	bool	 Empty;
 } LifoBuffer;
 
-void LifoBuffer_Init(LifoBuffer* lifo, void* buff, uint32_t elementSize, uint32_t numElements);
+void  LifoBuffer_Init(LifoBuffer* lifo, void* buff, uint32_t elementSize, uint32_t numElements);
 void* LifoBuffer_Add(LifoBuffer* lifo);
 void* LifoBuffer_Remove(LifoBuffer* lifo);
 

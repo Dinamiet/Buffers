@@ -8,8 +8,8 @@
 int main()
 {
 	LifoBuffer stack;
-	uint32_t	buffer[NUM_NODES] = {0};
-	uint32_t*	item= NULL;
+	uint32_t   buffer[NUM_NODES] = {0};
+	uint32_t*  item				 = NULL;
 
 	LifoBuffer_Init(&stack, (void*)buffer, sizeof(buffer[0]), NUM_NODES);
 
@@ -19,20 +19,20 @@ int main()
 	item = LifoBuffer_Add(&stack);
 	if (item == NULL)
 		return 2;
-	*item= 10;
+	*item = 10;
 
 	item = LifoBuffer_Add(&stack);
 	if (item == NULL)
 		return 3;
-	*item= 20;
+	*item = 20;
 
-	item= LifoBuffer_Remove(&stack);
+	item = LifoBuffer_Remove(&stack);
 	if (item == NULL)
 		return 4;
 	if (*item != 20)
 		return 4;
 
-	item= LifoBuffer_Remove(&stack);
+	item = LifoBuffer_Remove(&stack);
 	if (item == NULL)
 		return 5;
 	if (*item != 10)
@@ -43,7 +43,7 @@ int main()
 		item = LifoBuffer_Add(&stack);
 		if (item == NULL)
 			return 100 + i;
-		*item = 100*i+1;
+		*item = 100 * i + 1;
 	}
 
 	if (LifoBuffer_Add(&stack) != NULL)
@@ -51,14 +51,14 @@ int main()
 
 	for (size_t i = 0; i < NUM_NODES; i++)
 	{
-		item= LifoBuffer_Remove(&stack);
+		item = LifoBuffer_Remove(&stack);
 		if (item == NULL)
 			return 200 + i;
-		if (*item != 201-100*i)
+		if (*item != 201 - 100 * i)
 			return 11 + i;
 	}
 
-	item= LifoBuffer_Remove(&stack);
+	item = LifoBuffer_Remove(&stack);
 	if (item != NULL)
 		return 10;
 

@@ -15,7 +15,7 @@ typedef struct
 	bool	 Empty;
 } FifoBuffer;
 
-void FifoBuffer_Init(FifoBuffer* fifo, void* buff, uint32_t elementSize, uint32_t numElements);
+void  FifoBuffer_Init(FifoBuffer* fifo, void* buff, uint32_t elementSize, uint32_t numElements);
 void* FifoBuffer_Add(FifoBuffer* fifo);
 void* FifoBuffer_Remove(FifoBuffer* fifo);
 
