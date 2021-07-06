@@ -15,7 +15,7 @@ typedef struct
 } StackBuffer;
 
 void StackBuffer_Init(StackBuffer* stack, void* buff, uint32_t elementSize, uint32_t numElements);
-bool StackBuffer_Add(StackBuffer* stack, void* element);
-bool StackBuffer_Remove(StackBuffer* stack, void* element);
+void* StackBuffer_Add(StackBuffer* stack);
+void* StackBuffer_Remove(StackBuffer* stack);
 
 #endif

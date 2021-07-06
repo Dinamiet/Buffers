@@ -16,7 +16,7 @@ typedef struct
 } QueueBuffer;
 
 void QueueBuffer_Init(QueueBuffer* queue, void* buff, uint32_t elementSize, uint32_t numElements);
-bool QueueBuffer_Add(QueueBuffer* queue, void* element);
-bool QueueBuffer_Remove(QueueBuffer* queue, void* element);
+void* QueueBuffer_Add(QueueBuffer* queue);
+void* QueueBuffer_Remove(QueueBuffer* queue);
 
 #endif

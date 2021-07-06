@@ -12,30 +12,28 @@ void StackBuffer_Init(StackBuffer* stack, void* buff, uint32_t elementSize, uint
 	stack->Empty	   = true;
 }
 
-bool StackBuffer_Add(StackBuffer* stack, void* element)
+void* StackBuffer_Add(StackBuffer* stack)
 {
 	if (stack->Full)
-		return false;
+		return NULL;
 
 	uint32_t offset = stack->Head * stack->ElementSize;
-	memcpy((uint8_t*)stack->Buffer + offset, element, stack->ElementSize);
 
 	stack->Full	 = ++stack->Head == stack->NumElements;
 	stack->Empty = false; // Cannot be full - just added element
 
-	return true;
+	return (uint8_t*)stack->Buffer + offset;
 }
 
-bool StackBuffer_Remove(StackBuffer* stack, void* element)
+void* StackBuffer_Remove(StackBuffer* stack)
 {
 	if (stack->Empty)
-		return false;
+		return NULL;
 
 	uint32_t offset = --stack->Head * stack->ElementSize;
-	memcpy(element, (uint8_t*)stack->Buffer + offset, stack->ElementSize);
 
 	stack->Empty = stack->Head == 0;
 	stack->Full	 = false; // Cannot be empty - just removed element
 
-	return true;
+	return (uint8_t*)stack->Buffer + offset;
 }

@@ -9,51 +9,58 @@ int main()
 {
 	QueueBuffer queue;
 	uint32_t	buffer[NUM_NODES] = {0};
-	uint32_t	item;
+	uint32_t*	item= NULL;
 
 	QueueBuffer_Init(&queue, (void*)buffer, sizeof(buffer[0]), NUM_NODES);
 
-	if (QueueBuffer_Remove(&queue, (void*)&item))
+	item= QueueBuffer_Remove(&queue);
+	if (item != NULL)
 		return 1;
 
-	item = 10;
-	if (!QueueBuffer_Add(&queue, (void*)&item))
+	item = QueueBuffer_Add(&queue);
+	if (item == NULL)
 		return 2;
+	*item= 10;
 
-	item = 20;
-	if (!QueueBuffer_Add(&queue, (void*)&item))
+	item = QueueBuffer_Add(&queue);
+	if (item == NULL)
 		return 3;
+	*item= 20;
 
-	if (!QueueBuffer_Remove(&queue, (void*)&item))
+	item= QueueBuffer_Remove(&queue);
+	if (item == NULL)
 		return 4;
-	if (item != 10)
+	if (*item != 10)
 		return 4;
 
-	if (!QueueBuffer_Remove(&queue, (void*)&item))
+	item= QueueBuffer_Remove(&queue);
+	if (item == NULL)
 		return 5;
-	if (item != 20)
+	if (*item != 20)
 		return 5;
 
 	for (size_t i = 0; i < NUM_NODES; i++)
 	{
-		item = 100 * i;
-		if (!QueueBuffer_Add(&queue, (void*)&item))
+		item = QueueBuffer_Add(&queue);
+		if (item == NULL)
 			return 100 + i;
+		*item = 100*i+1;
 	}
 
-	item = 20;
-	if (QueueBuffer_Add(&queue, (void*)&item))
+	if (QueueBuffer_Add(&queue) != NULL)
 		return 3;
 
 	for (size_t i = 0; i < NUM_NODES; i++)
 	{
-		if (!QueueBuffer_Remove(&queue, (void*)&item))
+		item= QueueBuffer_Remove(&queue);
+		if (item == NULL)
 			return 200 + i;
-		if (item != i * 100)
+		if (*item != 100*i+1)
 			return 11 + i;
 	}
 
-	if (QueueBuffer_Remove(&queue, (void*)&item))
+	item= QueueBuffer_Remove(&queue);
+	if (item != NULL)
 		return 10;
 
 	return 0;

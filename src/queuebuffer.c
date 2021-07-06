@@ -13,13 +13,12 @@ void QueueBuffer_Init(QueueBuffer* queue, void* buff, uint32_t elementSize, uint
 	queue->Empty	   = true;
 }
 
-bool QueueBuffer_Add(QueueBuffer* queue, void* element)
+void* QueueBuffer_Add(QueueBuffer* queue)
 {
 	if (queue->Full)
-		return false;
+		return NULL;
 
 	uint32_t offset = queue->Head * queue->ElementSize;
-	memcpy((uint8_t*)queue->Buffer + offset, element, queue->ElementSize);
 
 	if (++queue->Head >= queue->NumElements) // Wrap around at buffer end
 		queue->Head = 0;
@@ -27,16 +26,15 @@ bool QueueBuffer_Add(QueueBuffer* queue, void* element)
 	queue->Full	 = queue->Head == queue->Tail;
 	queue->Empty = false; // Cannot be empty - just added element
 
-	return true;
+	return (uint8_t*)queue->Buffer + offset;
 }
 
-bool QueueBuffer_Remove(QueueBuffer* queue, void* element)
+void* QueueBuffer_Remove(QueueBuffer* queue)
 {
 	if (queue->Empty)
-		return false;
+		return NULL;
 
 	uint32_t offset = queue->Tail * queue->ElementSize;
-	memcpy(element, (uint8_t*)queue->Buffer + offset, queue->ElementSize);
 
 	if (++queue->Tail >= queue->NumElements) // Wrap around at buffer end
 		queue->Tail = 0;
@@ -44,5 +42,5 @@ bool QueueBuffer_Remove(QueueBuffer* queue, void* element)
 	queue->Empty = queue->Head == queue->Tail;
 	queue->Full	 = false; // Cannot be full - just removed element
 
-	return true;
+	return (uint8_t*)queue->Buffer + offset;
 }
