@@ -78,7 +78,7 @@ add_test(
 )
 
 ################################
-set(EXECUTABLE_TARGET "${PROJECT_NAME}_stackbuffer")
+set(EXECUTABLE_TARGET "${PROJECT_NAME}_lifobuffer")
 add_executable(${EXECUTABLE_TARGET})
 
 target_compile_options(${EXECUTABLE_TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror)
@@ -86,7 +86,7 @@ target_compile_options(${EXECUTABLE_TARGET} PRIVATE -Wall -Wextra -Wpedantic -We
 target_sources(
     ${EXECUTABLE_TARGET}
     PRIVATE # All private source and header files listed here
-        main_stackbuffer.c
+        main_lifobuffer.c
 )
 
 target_link_libraries(

@@ -35,13 +35,13 @@ target_sources(
     PUBLIC  # All public source and header files listed here
         include/linkedlist.h
         include/bufferedlist.h
-        include/queuebuffer.h
-        include/stackbuffer.h
+        include/fifobuffer.h
+        include/lifobuffer.h
     PRIVATE # All private source and header files listed here
         src/linkedlist.c
         src/bufferedlist.c
-        src/queuebuffer.c
-        src/stackbuffer.c
+        src/fifobuffer.c
+        src/lifobuffer.c
 )
 
 endif()
