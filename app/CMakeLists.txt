@@ -53,7 +53,7 @@ add_test(
 )
 
 ################################
-set(EXECUTABLE_TARGET "${PROJECT_NAME}_queuebuffer")
+set(EXECUTABLE_TARGET "${PROJECT_NAME}_fifobuffer")
 add_executable(${EXECUTABLE_TARGET})
 
 target_compile_options(${EXECUTABLE_TARGET} PRIVATE -Wall -Wextra -Wpedantic -Werror)
