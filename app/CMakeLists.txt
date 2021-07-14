@@ -5,24 +5,6 @@ cmake_minimum_required(VERSION 3.20.0)
 set(EXECUTABLE_TARGET "${PROJECT_NAME}_linklist")
 add_executable(${EXECUTABLE_TARGET})
 
-target_compile_options(
-    ${EXECUTABLE_TARGET}
-    PRIVATE
-        "-Wall"
-        "-Wextra"
-        "-Wpedantic"
-        "-Werror"
-        "-Wshadow"
-        "-Wdouble-promotion"
-        "-Wformat=2"
-        "-Wformat-security"
-        "-Wformat-truncation"
-        "-Wundef"
-        "-fno-common"
-        # "-Wconversion"
-        "-Wpadded"
-)
-
 target_sources(
     ${EXECUTABLE_TARGET}
     PRIVATE # All private source and header files listed here
@@ -47,24 +29,6 @@ add_test(
 set(EXECUTABLE_TARGET "${PROJECT_NAME}_bufferedlist")
 add_executable(${EXECUTABLE_TARGET})
 
-target_compile_options(
-    ${EXECUTABLE_TARGET}
-    PRIVATE
-        "-Wall"
-        "-Wextra"
-        "-Wpedantic"
-        "-Werror"
-        "-Wshadow"
-        "-Wdouble-promotion"
-        "-Wformat=2"
-        "-Wformat-security"
-        "-Wformat-truncation"
-        "-Wundef"
-        "-fno-common"
-        # "-Wconversion"
-        "-Wpadded"
-)
-
 target_sources(
     ${EXECUTABLE_TARGET}
     PRIVATE # All private source and header files listed here
@@ -88,24 +52,6 @@ add_test(
 set(EXECUTABLE_TARGET "${PROJECT_NAME}_fifobuffer")
 add_executable(${EXECUTABLE_TARGET})
 
-target_compile_options(
-    ${EXECUTABLE_TARGET}
-    PRIVATE
-        "-Wall"
-        "-Wextra"
-        "-Wpedantic"
-        "-Werror"
-        "-Wshadow"
-        "-Wdouble-promotion"
-        "-Wformat=2"
-        "-Wformat-security"
-        "-Wformat-truncation"
-        "-Wundef"
-        "-fno-common"
-        # "-Wconversion"
-        "-Wpadded"
-)
-
 target_sources(
     ${EXECUTABLE_TARGET}
     PRIVATE # All private source and header files listed here
@@ -128,24 +74,6 @@ add_test(
 ################################
 set(EXECUTABLE_TARGET "${PROJECT_NAME}_lifobuffer")
 add_executable(${EXECUTABLE_TARGET})
-
-target_compile_options(
-    ${EXECUTABLE_TARGET}
-    PRIVATE
-        "-Wall"
-        "-Wextra"
-        "-Wpedantic"
-        "-Werror"
-        "-Wshadow"
-        "-Wdouble-promotion"
-        "-Wformat=2"
-        "-Wformat-security"
-        "-Wformat-truncation"
-        "-Wundef"
-        "-fno-common"
-        # "-Wconversion"
-        "-Wpadded"
-)
 
 target_sources(
     ${EXECUTABLE_TARGET}
