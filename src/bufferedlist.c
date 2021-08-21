@@ -1,6 +1,6 @@
 #include "bufferedlist.h"
 
-void BufferedList_Init(BufferedList* list, void* nodes, uint32_t nodeSize, uint32_t numNodes)
+void BufferedList_Init(BufferedList* list, void* nodes, size_t nodeSize, size_t numNodes)
 {
 	LinkedList_Init(&list->Free);
 	LinkedList_Init(&list->Used);

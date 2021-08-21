@@ -1,8 +1,9 @@
 #include "fifobuffer.h"
 
 #include <string.h>
+#include <stdint.h>
 
-void FifoBuffer_Init(FifoBuffer* fifo, void* buff, uint32_t elementSize, uint32_t numElements)
+void FifoBuffer_Init(FifoBuffer* fifo, void* buff, size_t elementSize, size_t numElements)
 {
 	fifo->Buffer	  = buff;
 	fifo->ElementSize = elementSize;
@@ -18,7 +19,7 @@ void* FifoBuffer_Add(FifoBuffer* fifo)
 	if (fifo->Full)
 		return NULL;
 
-	uint32_t offset = fifo->Head++ * fifo->ElementSize;
+	size_t offset = fifo->Head++ * fifo->ElementSize;
 
 	if (fifo->Head >= fifo->NumElements) // Wrap around at buffer end
 		fifo->Head = 0;
@@ -34,7 +35,7 @@ void* FifoBuffer_Remove(FifoBuffer* fifo)
 	if (fifo->Empty)
 		return NULL;
 
-	uint32_t offset = fifo->Tail++ * fifo->ElementSize;
+	size_t offset = fifo->Tail++ * fifo->ElementSize;
 
 	if (fifo->Tail >= fifo->NumElements) // Wrap around at buffer end
 		fifo->Tail = 0;

@@ -2,6 +2,7 @@
 #define __BUFFEREDLIST_H__
 
 #include "linkedlist.h"
+#include <stddef.h>
 
 typedef struct _BufferedList
 {
@@ -9,7 +10,7 @@ typedef struct _BufferedList
 	LinkedList Used;
 } BufferedList;
 
-void  BufferedList_Init(BufferedList* list, void* nodes, uint32_t nodeSize, uint32_t numNodes);
+void  BufferedList_Init(BufferedList* list, void* nodes, size_t nodeSize, size_t numNodes);
 void* BufferedList_LinkHead(BufferedList* list);
 void* BufferedList_LinkTail(BufferedList* list);
 void* BufferedList_UnlinkHead(BufferedList* list);
