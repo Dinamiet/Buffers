@@ -7,6 +7,8 @@ project(
     Buffers
 )
 
+if (NOT TARGET ${PROJECT_NAME}) # Only configure if not already configured
+
 add_library(
     ${PROJECT_NAME}
     STATIC
@@ -61,3 +63,5 @@ target_sources(
         src/fifobuffer.c
         src/lifobuffer.c
 )
+
+endif()
