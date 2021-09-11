@@ -1,7 +1,7 @@
 #include "lifobuffer.h"
 
-#include <string.h>
 #include <stdint.h>
+#include <string.h>
 
 void LifoBuffer_Init(LifoBuffer* lifo, void* buff, size_t elementSize, size_t numElements)
 {

@@ -1,7 +1,7 @@
 #include "fifobuffer.h"
 
-#include <string.h>
 #include <stdint.h>
+#include <string.h>
 
 void FifoBuffer_Init(FifoBuffer* fifo, void* buff, size_t elementSize, size_t numElements)
 {
