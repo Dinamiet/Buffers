@@ -1,29 +1,16 @@
-# README #
+#	Buffers
+Collection of commonly used buffers and storage types
 
-This README would normally document whatever steps are necessary to get your application up and running.
+##	Linked List
+Circular doubly linked list.
 
-### What is this repository for? ###
+`Nodes` are not dynamically allocated. `Nodes` need to be created before they are added to the list. `Nodes` need to survive for the entire duration they are in the list.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+##	Buffered List
+Initialized with a preallocated array of `Nodes`. When a `Node` is required the list will provide an available `Node`. If `Node` is unused inform the list and it will be added back to the unused pool to be used later when needed.
 
-### How do I get set up? ###
+##	Fifo buffer
+First In First Out buffer. Initialized with a preallocated buffer which then acts as a `FIFO` when adding and removing elements
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+##	Lifo buffer
+Last In First Out buffer. Initialized with a preallocated buffer which then acts as a `LIFO` when adding and removing elements.
