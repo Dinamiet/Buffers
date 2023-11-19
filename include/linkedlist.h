@@ -1,8 +1,8 @@
-#ifndef __LINKEDLIST_H__
-#define __LINKEDLIST_H__
+#ifndef _LINKEDLIST_H_
+#define _LINKEDLIST_H_
 
+#include <stdbool.h>
 #include <stddef.h>
-#include <stdint.h>
 
 typedef struct _Node
 {
@@ -10,19 +10,25 @@ typedef struct _Node
 	struct _Node* Prev;
 } Node;
 
-typedef struct _LinkedList
+typedef struct _LinkedList_
 {
 	Node* Head;
-	Node* Tail;
 } LinkedList;
 
-void  LinkedList_Init(LinkedList* list);
-void* LinkedList_LinkHead(LinkedList* list, void* node);
-void* LinkedList_LinkTail(LinkedList* list, void* node);
-void* LinkedList_UnlinkHead(LinkedList* list);
-void* LinkedList_UnlinkTail(LinkedList* list);
-void* LinkedList_LinkAfter(LinkedList* list, void* afterNode, void* node);
-void* LinkedList_LinkBefore(LinkedList* list, void* beforeNode, void* node);
-void* LinkedList_UnlinkNode(LinkedList* list, void* node);
+void   LinkedList_Init(LinkedList* list);
+bool   LinkedList_Empty(LinkedList* list);
+size_t LinkedList_Length(LinkedList* list);
+void*  LinkedList_Head(LinkedList* list);
+void*  LinkedList_Tail(LinkedList* list);
+void*  LinkedList_Next(void* node);
+void*  LinkedList_Prev(void* node);
+void*  LinkedList_AddHead(LinkedList* list, void* node);
+void*  LinkedList_AddAfter(void* afterNode, void* node);
+void*  LinkedList_AddTail(LinkedList* list, void* node);
+void*  LinkedList_RemoveNode(LinkedList* list, void* node);
+void*  LinkedList_RemoveHead(LinkedList* list);
+void*  LinkedList_RemoveTail(LinkedList* list);
+void   LinkedList_Clear(LinkedList* list);
+void   LinkedList_Merge(LinkedList* list, LinkedList* other);
 
 #endif

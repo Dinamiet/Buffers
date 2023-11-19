@@ -1,112 +1,111 @@
 #include "linkedlist.h"
 
-void LinkedList_Init(LinkedList* list)
+void LinkedList_Init(LinkedList* list) { list->Head = NULL; }
+
+bool LinkedList_Empty(LinkedList* list) { return list->Head == NULL; }
+
+size_t LinkedList_Length(LinkedList* list)
 {
-	list->Head = NULL;
-	list->Tail = NULL;
+	if (LinkedList_Empty(list))
+		return 0;
+
+	Node*  node  = list->Head;
+	size_t count = 0;
+	do {
+		count++;
+		node = node->Next;
+	} while (node != list->Head);
+
+	return count;
 }
 
-void* LinkedList_LinkHead(LinkedList* list, void* _node)
-{
-	Node* node = (Node*)_node;
+void* LinkedList_Head(LinkedList* list) { return list->Head; }
 
-	if (list->Head == NULL && list->Tail == NULL)
-		return list->Head = list->Tail = node->Next = node->Prev = node;
-	return LinkedList_LinkBefore(list, list->Head, node);
+void* LinkedList_Tail(LinkedList* list) { return list->Head->Prev; }
+
+void* LinkedList_Next(void* _node)
+{
+	Node* node = _node;
+	return node ? node->Next : NULL;
 }
 
-void* LinkedList_LinkTail(LinkedList* list, void* _node)
+void* LinkedList_Prev(void* _node)
 {
-	Node* node = (Node*)_node;
-
-	if (list->Head == NULL && list->Tail == NULL)
-		return list->Head = list->Tail = node->Next = node->Prev = node;
-	return LinkedList_LinkAfter(list, list->Tail, node);
+	Node* node = _node;
+	return node ? node->Prev : NULL;
 }
 
-void* LinkedList_UnlinkHead(LinkedList* list) { return LinkedList_UnlinkNode(list, list->Head); }
-
-void* LinkedList_UnlinkTail(LinkedList* list) { return LinkedList_UnlinkNode(list, list->Tail); }
-
-void* LinkedList_LinkAfter(LinkedList* list, void* _afterNode, void* _node)
+void* LinkedList_AddAfter(void* _afterNode, void* _node)
 {
-	Node* node		= (Node*)_node;
-	Node* afterNode = (Node*)_afterNode;
+	Node* node      = _node;
+	Node* afterNode = _afterNode;
 
-	if (afterNode == NULL || node == NULL)
-	{
+	if (!afterNode || !node)
 		return NULL;
-	}
 
-	// Update links
-	node->Prev		= afterNode;
-	node->Next		= afterNode->Next;
-	afterNode->Next = node;
-
-	// If node is added after tail, references needs to be updated
-	if (list->Tail == afterNode)
-	{
-		list->Tail = list->Head->Prev = node;
-	}
+	node->Prev            = afterNode;
+	node->Next            = afterNode->Next;
+	afterNode->Next->Prev = node;
+	afterNode->Next       = node;
 
 	return node;
 }
 
-void* LinkedList_LinkBefore(LinkedList* list, void* _beforeNode, void* _node)
+void* LinkedList_AddHead(LinkedList* list, void* _node)
 {
-	Node* node		 = (Node*)_node;
-	Node* beforeNode = (Node*)_beforeNode;
+	Node* node = _node;
+	if (!list->Head)
+		return list->Head = node->Next = node->Prev = node;
 
-	if (beforeNode == NULL || node == NULL)
-	{
-		return NULL;
-	}
-
-	// Update links
-	node->Next		 = beforeNode;
-	node->Prev		 = beforeNode->Prev;
-	beforeNode->Prev = node;
-
-	// If node is added before head, references needs to be updated
-	if (list->Head == beforeNode)
-	{
-		list->Head = list->Tail->Next = node;
-	}
-
-	return node;
+	list->Head = LinkedList_AddAfter(list->Head->Prev, node);
+	return list->Head;
 }
 
-void* LinkedList_UnlinkNode(LinkedList* list, void* _node)
+void* LinkedList_AddTail(LinkedList* list, void* _node)
 {
-	Node* node = (Node*)_node;
+	Node* node = _node;
+	if (!list->Head)
+		return list->Head = node->Next = node->Prev = node;
 
-	if (node == NULL)
+	return LinkedList_AddAfter(list->Head->Prev, node);
+}
+
+void* LinkedList_RemoveNode(LinkedList* list, void* _node)
+{
+	Node* node = _node;
+	if (!node)
 		return NULL;
 
-	// Checks for last link in list
-	if (list->Head == node && list->Tail == node)
-	{
-		list->Head = list->Tail = node->Next = node->Prev = NULL;
-		return node;
-	}
-
-	// Check if head is being removed
 	if (node == list->Head)
-	{
-		list->Head = node->Next;
-	}
+		list->Head = NULL;
 
-	// Check if tail is being removed
-	if (node == list->Tail)
-	{
-		list->Tail = node->Prev;
-	}
-
-	// Remove node from list
 	node->Next->Prev = node->Prev;
 	node->Prev->Next = node->Next;
 
-	// Cleanup node
 	node->Next = node->Prev = NULL;
+
 	return node;
+}
+
+void* LinkedList_RemoveHead(LinkedList* list) { return LinkedList_RemoveNode(list, list->Head); }
+
+void* LinkedList_RemoveTail(LinkedList* list) { return LinkedList_RemoveNode(list, list->Head->Prev); }
+
+void LinkedList_Clear(LinkedList* list) { list->Head = NULL; }
+
+void LinkedList_Merge(LinkedList* list, LinkedList* other)
+{
+	if (LinkedList_Empty(other)) // No need to do anything
+		return;
+
+	if (LinkedList_Empty(list))
+		list->Head = other->Head;
+	else
+	{
+		list->Head->Prev->Next  = other->Head;
+		list->Head->Prev        = other->Head->Prev;
+		other->Head->Prev->Next = list->Head;
+		other->Head->Prev       = list->Head->Prev;
+	}
+	LinkedList_Clear(other);
 }
