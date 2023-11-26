@@ -1,40 +1,39 @@
 #include "lifobuffer.h"
 
-#include <stdint.h>
-#include <string.h>
-
 void LifoBuffer_Init(LifoBuffer* lifo, void* buff, size_t elementSize, size_t numElements)
 {
-	lifo->Buffer	  = buff;
+	lifo->Buffer      = buff;
 	lifo->ElementSize = elementSize;
 	lifo->NumElements = numElements;
-	lifo->Head		  = 0;
-	lifo->Full		  = false;
-	lifo->Empty		  = true;
+	LifoBuffer_Clear(lifo);
 }
+
+bool LifoBuffer_Full(LifoBuffer* lifo) { return (lifo->WorkingIndex == lifo->NumElements); }
+
+bool LifoBuffer_Empty(LifoBuffer* lifo) { return (lifo->WorkingIndex == 0); }
+
+size_t LifoBuffer_Used(LifoBuffer* lifo) { return lifo->WorkingIndex; }
+
+size_t LifoBuffer_Free(LifoBuffer* lifo) { return lifo->NumElements - lifo->WorkingIndex; }
 
 void* LifoBuffer_Add(LifoBuffer* lifo)
 {
-	if (lifo->Full)
+	if (LifoBuffer_Full(lifo))
 		return NULL;
 
-	size_t offset = lifo->Head * lifo->ElementSize;
+	size_t offset = lifo->WorkingIndex++ * lifo->ElementSize;
 
-	lifo->Full	= ++lifo->Head == lifo->NumElements;
-	lifo->Empty = false; // Cannot be full - just added element
-
-	return (uint8_t*)lifo->Buffer + offset;
+	return lifo->Buffer + offset;
 }
 
 void* LifoBuffer_Remove(LifoBuffer* lifo)
 {
-	if (lifo->Empty)
+	if (LifoBuffer_Empty(lifo))
 		return NULL;
 
-	size_t offset = --lifo->Head * lifo->ElementSize;
+	size_t offset = --lifo->WorkingIndex * lifo->ElementSize;
 
-	lifo->Empty = lifo->Head == 0;
-	lifo->Full	= false; // Cannot be empty - just removed element
-
-	return (uint8_t*)lifo->Buffer + offset;
+	return lifo->Buffer + offset;
 }
+
+void LifoBuffer_Clear(LifoBuffer* lifo) { lifo->WorkingIndex = 0; }
