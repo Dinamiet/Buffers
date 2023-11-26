@@ -1,5 +1,7 @@
 #include "bufferedlist.h"
 
+#include <stdint.h>
+
 void BufferedList_Init(BufferedList* list, void* nodes, size_t nodeSize, size_t numNodes)
 {
 	LinkedList_Init(&list->Free);
@@ -7,7 +9,7 @@ void BufferedList_Init(BufferedList* list, void* nodes, size_t nodeSize, size_t 
 
 	for (size_t i = 0; i < numNodes; i++)
 	{
-		void* node = nodes + nodeSize * i;
+		void* node = ((uint8_t*)nodes) + nodeSize * i;
 		LinkedList_AddTail(&list->Free, node);
 	}
 }
@@ -30,13 +32,13 @@ void* BufferedList_Prev(void* node) { return LinkedList_Prev(node); }
 
 void* BufferedList_AddHead(BufferedList* list)
 {
-	Node* tmp = LinkedList_UnlinkHead(&list->Free);
+	Node* tmp = LinkedList_RemoveHead(&list->Free);
 	return LinkedList_AddHead(&list->Used, tmp);
 }
 
 void* BufferedList_AddTail(BufferedList* list)
 {
-	Node* tmp = LinkedList_UnlinkHead(&list->Free);
+	Node* tmp = LinkedList_RemoveHead(&list->Free);
 	return LinkedList_AddTail(&list->Used, tmp);
 }
 
