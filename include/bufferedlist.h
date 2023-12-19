@@ -22,7 +22,7 @@ typedef struct _BufferedList
 
 /**
  * Initializes a BufferedList
- * \param list BufferedList to initialize
+ * \param list List to initialize
  * \param nodes Preallocated buffer for nodes
  * \param nodeSize Size (in bytes) of a single node in the buffer
  * \param numNodes The number of nodes in the buffer
@@ -86,30 +86,30 @@ void* BufferedList_Next(void* node);
 void* BufferedList_Prev(void* node);
 
 /**
- * Add element/node to the start of the list. An unused node must be available.
+ * Add element/node to the start of the list
  * \param list List to which a element/node will be added
- * \return Reference to the newly added node/element. NULL if no node/element could be added.
+ * \return Reference to the newly added node/element, NULL if no node/element could be added
  */
 void* BufferedList_AddHead(BufferedList* list);
 
 /**
- * Add element/node to the end of the list. An unused node must be available.
+ * Add element/node to the end of the list
  * \param list List to which a element/node will be added
- * \return Reference to the newly added node/element. NULL if no node/element could be added.
+ * \return Reference to the newly added node/element, NULL if no node/element could be added
  */
 void* BufferedList_AddTail(BufferedList* list);
 
 /**
- * Remove an element/node from the beginning of the list. The list must contain at least one element/node.
+ * Remove an element/node from the beginning of the list
  * \param list List from which to remove
- * \return Reference to the removed element/node. NULL if no node/element could be removed.
+ * \return Reference to the removed element/node, NULL if no node/element could be removed
  */
 void* BufferedList_RemoveHead(BufferedList* list);
 
 /**
- * Remove an element/node from the end of the list. The list must contain at least one element/node.
+ * Remove an element/node from the end of the list
  * \param list List from which to remove
- * \return Reference to the removed element/node. NULL if no node/element could be removed.
+ * \return Reference to the removed element/node, NULL if no node/element could be removed
  */
 void* BufferedList_RemoveTail(BufferedList* list);
 
@@ -117,7 +117,7 @@ void* BufferedList_RemoveTail(BufferedList* list);
  * Add node/element after a specific node/element in the list
  * \param list List to add to
  * \param afterNode Node after which an element/node will be added
- * \return Reference to newly added node/element. NULL if no node/element could be added.
+ * \return Reference to newly added node/element, NULL if no node/element could be added
  */
 void* BufferedList_AddAfter(BufferedList* list, void* afterNode);
 
@@ -125,7 +125,7 @@ void* BufferedList_AddAfter(BufferedList* list, void* afterNode);
  * Add node/element before a specific node/element in the list
  * \param list List to add to
  * \param afterNode Node before which an element/node will be added
- * \return Reference to newly added node/element. NULL if no node/element could be added.
+ * \return Reference to newly added node/element, NULL if no node/element could be added
  */
 void* BufferedList_AddBefore(BufferedList* list, void* beforeNode);
 
@@ -138,7 +138,7 @@ void* BufferedList_AddBefore(BufferedList* list, void* beforeNode);
 void* BufferedList_RemoveNode(BufferedList* list, void* node);
 
 /**
- * Clear/Empties the list of all used nodes/elements. All nodes/elements will be marked as unused.
+ * Clear/Empties the list of all used nodes/elements, all nodes/elements will be marked as unused
  * \param list List to clear/empty
  */
 void BufferedList_Clear(BufferedList* list);

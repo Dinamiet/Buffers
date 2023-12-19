@@ -65,14 +65,14 @@ size_t FifoBuffer_Free(FifoBuffer* fifo);
 /**
  * Add an element to the fifo
  * \param fifo Buffer to which an element must be added
- * \return Reference to the newly added element. NULL if no element could be allocated/added
+ * \return Reference to the newly added element, NULL if no element could be allocated/added
  */
 void* FifoBuffer_Add(FifoBuffer* fifo);
 
 /**
  * Remove an element from the fifo
  * \param fifo Buffer from which to remove an element
- * \return Reference to the removed element. NULL if no element could be removed
+ * \return Reference to the removed element, NULL if no element could be removed
  */
 void* FifoBuffer_Remove(FifoBuffer* fifo);
 

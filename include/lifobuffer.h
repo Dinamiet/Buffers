@@ -63,14 +63,14 @@ size_t LifoBuffer_Free(LifoBuffer* lifo);
 /**
  * Add an element to the lifo
  * \param lifo Buffer to which an element must be added
- * \return Reference to the newly added element. NULL if no element could be allocated/added
+ * \return Reference to the newly added element, NULL if no element could be allocated/added
  */
 void* LifoBuffer_Add(LifoBuffer* lifo);
 
 /**
  * Remove an element from the lifo
  * \param lifo Buffer from which to remove an element
- * \return Reference to the removed element. NULL if no element could be removed
+ * \return Reference to the removed element, NULL if no element could be removed
  */
 void* LifoBuffer_Remove(LifoBuffer* lifo);
 

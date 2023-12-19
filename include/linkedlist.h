@@ -50,14 +50,14 @@ size_t LinkedList_Length(LinkedList* list);
 /**
  * The first node of the list
  * \param list List to use
- * \return Reference to the first node of list. NULL if list does not contain any nodes
+ * \return Reference to the first node of list, NULL if list does not contain any nodes
  */
 void* LinkedList_Head(LinkedList* list);
 
 /**
  * The last node of the list
  * \param list List to use
- * \return Reference to the last node of list. NULL if list does not contain any nodes
+ * \return Reference to the last node of list, NULL if list does not contain any nodes
  */
 void* LinkedList_Tail(LinkedList* list);
 
@@ -110,14 +110,14 @@ void* LinkedList_RemoveNode(LinkedList* list, void* node);
 /**
  * Remove the first node from the list
  * \param list List from which first node will be removed.
- * \return Reference to the removed node. NULL if no node could be removed.
+ * \return Reference to the removed node, NULL if no node could be removed.
  */
 void* LinkedList_RemoveHead(LinkedList* list);
 
 /**
  * Remove the last node from the list
  * \param list List from which the last node will be removed.
- * \return Reference to the remcoed node. NULL if no node could be removed.
+ * \return Reference to the remcoed node, NULL if no node could be removed.
  */
 void* LinkedList_RemoveTail(LinkedList* list);
 
