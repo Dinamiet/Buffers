@@ -1,47 +1,74 @@
 #include "fifobuffer.h"
 
-#include <stdint.h>
-#include <string.h>
-
 void FifoBuffer_Init(FifoBuffer* fifo, void* buff, size_t elementSize, size_t numElements)
 {
-	fifo->Buffer	  = buff;
+	fifo->Buffer      = buff;
 	fifo->ElementSize = elementSize;
 	fifo->NumElements = numElements;
-	fifo->Head		  = 0;
-	fifo->Tail		  = 0;
-	fifo->Full		  = false;
-	fifo->Empty		  = true;
+	FifoBuffer_Clear(fifo);
+}
+
+bool FifoBuffer_Full(FifoBuffer* fifo) { return (fifo->AddIndex == fifo->RemoveIndex) && fifo->LastAdd; }
+
+bool FifoBuffer_Empty(FifoBuffer* fifo) { return (fifo->AddIndex == fifo->RemoveIndex) && !fifo->LastAdd; }
+
+size_t FifoBuffer_Used(FifoBuffer* fifo)
+{
+	if (FifoBuffer_Empty(fifo))
+		return 0;
+	else if (FifoBuffer_Full(fifo))
+		return fifo->NumElements;
+	else if (fifo->AddIndex > fifo->RemoveIndex)
+		return fifo->AddIndex - fifo->RemoveIndex;
+	else
+		return fifo->NumElements - FifoBuffer_Free(fifo);
+}
+
+size_t FifoBuffer_Free(FifoBuffer* fifo)
+{
+	if (FifoBuffer_Full(fifo))
+		return 0;
+	else if (FifoBuffer_Empty(fifo))
+		return fifo->NumElements;
+	else if (fifo->AddIndex < fifo->RemoveIndex)
+		return fifo->RemoveIndex - fifo->AddIndex;
+	else
+		return fifo->NumElements - FifoBuffer_Used(fifo);
 }
 
 void* FifoBuffer_Add(FifoBuffer* fifo)
 {
-	if (fifo->Full)
+	if (FifoBuffer_Full(fifo))
 		return NULL;
 
-	size_t offset = fifo->Head++ * fifo->ElementSize;
+	size_t offset = fifo->AddIndex++ * fifo->ElementSize; // Convert index to address
 
-	if (fifo->Head >= fifo->NumElements) // Wrap around at buffer end
-		fifo->Head = 0;
+	if (fifo->AddIndex >= fifo->NumElements)
+		fifo->AddIndex = 0; // Wrap around
 
-	fifo->Full	= fifo->Head == fifo->Tail;
-	fifo->Empty = false; // Cannot be empty - just added element
+	fifo->LastAdd = true;
 
-	return (uint8_t*)fifo->Buffer + offset;
+	return fifo->Buffer + offset;
 }
 
 void* FifoBuffer_Remove(FifoBuffer* fifo)
 {
-	if (fifo->Empty)
+	if (FifoBuffer_Empty(fifo))
 		return NULL;
 
-	size_t offset = fifo->Tail++ * fifo->ElementSize;
+	size_t offset = fifo->RemoveIndex++ * fifo->ElementSize; // Convert index to address
 
-	if (fifo->Tail >= fifo->NumElements) // Wrap around at buffer end
-		fifo->Tail = 0;
+	if (fifo->RemoveIndex >= fifo->NumElements)
+		fifo->RemoveIndex = 0; // Wrap around
 
-	fifo->Empty = fifo->Head == fifo->Tail;
-	fifo->Full	= false; // Cannot be full - just removed element
+	fifo->LastAdd = false;
 
-	return (uint8_t*)fifo->Buffer + offset;
+	return fifo->Buffer + offset;
+}
+
+void FifoBuffer_Clear(FifoBuffer* fifo)
+{
+	fifo->AddIndex    = 0;
+	fifo->RemoveIndex = 0;
+	fifo->LastAdd     = false;
 }
