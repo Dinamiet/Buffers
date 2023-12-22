@@ -76,6 +76,11 @@ void* LinkedList_RemoveNode(LinkedList* list, void* _node)
 	if (!node)
 		return NULL;
 
+	// If removing Head node, move head to next node
+	if (node == list->Head)
+		list->Head = node->Next;
+	
+	// If node is still the head node, node was only node in list, empty list
 	if (node == list->Head)
 		list->Head = NULL;
 
