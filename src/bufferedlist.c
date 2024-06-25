@@ -63,7 +63,7 @@ void* BufferedList_AddAfter(BufferedList* list, void* afterNode)
 void* BufferedList_AddBefore(BufferedList* list, void* beforeNode)
 {
 	Node* tmp = LinkedList_RemoveHead(&list->Free);
-	return LinkedList_AddAfter(beforeNode, tmp);
+	return LinkedList_AddAfter(((Node*)beforeNode)->Prev, tmp);
 }
 
 void* BufferedList_RemoveNode(BufferedList* list, void* node)

@@ -123,6 +123,7 @@ void* BufferedList_AddAfter(BufferedList* list, void* afterNode);
 
 /**
  * Add node/element before a specific node/element in the list
+ * NOTE: Adding before the first node does not update first to the new node.
  * \param list List to add to
  * \param afterNode Node before which an element/node will be added
  * \return Reference to newly added node/element, NULL if no node/element could be added
