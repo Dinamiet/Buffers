@@ -21,7 +21,7 @@ size_t LinkedList_Length(LinkedList* list)
 
 void* LinkedList_Head(LinkedList* list) { return list->Head; }
 
-void* LinkedList_Tail(LinkedList* list) { return list->Head->Prev; }
+void* LinkedList_Tail(LinkedList* list) { return list->Head ? list->Head->Prev : NULL; }
 
 void* LinkedList_Next(void* _node)
 {
