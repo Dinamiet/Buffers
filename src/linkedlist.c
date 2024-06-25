@@ -107,10 +107,15 @@ void LinkedList_Merge(LinkedList* list, LinkedList* other)
 		list->Head = other->Head;
 	else
 	{
-		list->Head->Prev->Next  = other->Head;
-		list->Head->Prev        = other->Head->Prev;
-		other->Head->Prev->Next = list->Head;
-		other->Head->Prev       = list->Head->Prev;
+		Node* thisHead  = list->Head;
+		Node* thisTail  = list->Head->Prev;
+		Node* otherHead = other->Head;
+		Node* otherTail = other->Head->Prev;
+
+		thisTail->Next  = otherHead;
+		otherTail->Next = thisHead;
+		thisHead->Prev  = otherTail;
+		otherHead->Prev = thisTail;
 	}
 	LinkedList_Clear(other);
 }
