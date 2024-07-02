@@ -54,6 +54,9 @@ void* LinkedList_AddAfter(void* _afterNode, void* _node)
 void* LinkedList_AddHead(LinkedList* list, void* _node)
 {
 	Node* node = _node;
+	if (!node)
+		return NULL;
+
 	if (!list->Head)
 		return list->Head = node->Next = node->Prev = node;
 
