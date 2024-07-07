@@ -32,35 +32,35 @@ typedef struct
  * \param elementSize Size (in bytes) of a single buffer element
  * \param numElement Total number of elements that can be stored in the buffer
  */
-void FifoBuffer_Init(FifoBuffer* fifo, void* buff, size_t elementSize, size_t numElements);
+void FifoBuffer_Init(FifoBuffer* fifo, void* buff, const size_t elementSize, const size_t numElements);
 
 /**
  * Check if buffer is full
  * \param fifo Buffer to check
  * \return True if fifo is full, false otherwise
  */
-bool FifoBuffer_Full(FifoBuffer* fifo);
+bool FifoBuffer_Full(const FifoBuffer* fifo);
 
 /**
  * Check if buffer is empty
  * \param fifo Buffer to check
  * \return True if fifo is empty, false otherwise
  */
-bool FifoBuffer_Empty(FifoBuffer* fifo);
+bool FifoBuffer_Empty(const FifoBuffer* fifo);
 
 /**
  * Get the number of used elements from a buffer
  * \param fifo Buffer to check usage
  * \return Number of elements active in the buffer
  */
-size_t FifoBuffer_Used(FifoBuffer* fifo);
+size_t FifoBuffer_Used(const FifoBuffer* fifo);
 
 /**
  * Get the number of free elements for a buffer
  * \param fifo Buffer to check usage
  * \return Number of elements not used by the buffer
  */
-size_t FifoBuffer_Free(FifoBuffer* fifo);
+size_t FifoBuffer_Free(const FifoBuffer* fifo);
 
 /**
  * Add an element to the fifo
