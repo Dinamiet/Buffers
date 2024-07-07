@@ -28,62 +28,63 @@ typedef struct _BufferedList
  * \param numNodes The number of nodes in the buffer
  * \note Storage structure (node elements) should contain a Node structure at start of each items memory structure.
  */
-void BufferedList_Init(BufferedList* list, void* nodes, size_t nodeSize, size_t numNodes);
+void BufferedList_Init(BufferedList* list, const void* nodes, const size_t nodeSize, const size_t numNodes);
 
 /**
  * Check if list is empty
  * \param list List to retreive information from
  * \return True if list is empty and does not have any allocated/in use nodes. False otherwise
  */
-bool BufferedList_Empty(BufferedList* list);
+bool BufferedList_Empty(const BufferedList* list);
 
 /**
  * Check if list is full
  * \param list List to retreive information from
  * \return True if list does not have any unallocated/unused nodes availabel. False otherwise
  */
-bool BufferedList_Full(BufferedList* list);
+bool BufferedList_Full(const BufferedList* list);
 
 /**
  * Number of used nodes
  * \param list List to retreive information from
  * \return Number of used elements/allocated nodes
  */
-size_t BufferedList_Used(BufferedList* list);
+size_t BufferedList_Used(const BufferedList* list);
 
 /**
  * Number of free nodes
  * \param list List to retreive information from
  * \return Number of free elements/unused nodes
  */
-size_t BufferedList_Free(BufferedList* list);
+size_t BufferedList_Free(const BufferedList* list);
 
 /**
  * First used node in list
  * \param list List to retreive information from
  * \return Reference to the first used node in the list
  */
-void* BufferedList_First(BufferedList* list);
+void* BufferedList_First(const BufferedList* list);
 
 /**
  * Last used node in list
  * \param list List to retreive information from
  * \return Reference to the last used node in the list
  */
-void* BufferedList_Last(BufferedList* list);
+void* BufferedList_Last(const BufferedList* list);
 
 /**
  * Next node in list
  * \param node Current node
  * \return Reference to the node after the current node
  */
-void* BufferedList_Next(void* node);
+void* BufferedList_Next(const void* node);
 
 /**
+ * Previous node in list
  * \param node Current node
  * \return Reference to the node before the current node
  */
-void* BufferedList_Prev(void* node);
+void* BufferedList_Prev(const void* node);
 
 /**
  * Add element/node to the start of the list

@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-void BufferedList_Init(BufferedList* list, void* nodes, size_t nodeSize, size_t numNodes)
+void BufferedList_Init(BufferedList* list, const void* nodes, const size_t nodeSize, const size_t numNodes)
 {
 	LinkedList_Init(&list->Free);
 	LinkedList_Init(&list->Used);
@@ -14,21 +14,21 @@ void BufferedList_Init(BufferedList* list, void* nodes, size_t nodeSize, size_t 
 	}
 }
 
-bool BufferedList_Empty(BufferedList* list) { return LinkedList_Empty(&list->Used); }
+bool BufferedList_Empty(const BufferedList* list) { return LinkedList_Empty(&list->Used); }
 
-bool BufferedList_Full(BufferedList* list) { return LinkedList_Empty(&list->Free); }
+bool BufferedList_Full(const BufferedList* list) { return LinkedList_Empty(&list->Free); }
 
-size_t BufferedList_Used(BufferedList* list) { return LinkedList_Length(&list->Used); }
+size_t BufferedList_Used(const BufferedList* list) { return LinkedList_Length(&list->Used); }
 
-size_t BufferedList_Free(BufferedList* list) { return LinkedList_Length(&list->Free); }
+size_t BufferedList_Free(const BufferedList* list) { return LinkedList_Length(&list->Free); }
 
-void* BufferedList_First(BufferedList* list) { return LinkedList_Head(&list->Used); }
+void* BufferedList_First(const BufferedList* list) { return LinkedList_Head(&list->Used); }
 
-void* BufferedList_Last(BufferedList* list) { return LinkedList_Tail(&list->Used); }
+void* BufferedList_Last(const BufferedList* list) { return LinkedList_Tail(&list->Used); }
 
-void* BufferedList_Next(void* node) { return LinkedList_Next(node); }
+void* BufferedList_Next(const void* node) { return LinkedList_Next(node); }
 
-void* BufferedList_Prev(void* node) { return LinkedList_Prev(node); }
+void* BufferedList_Prev(const void* node) { return LinkedList_Prev(node); }
 
 void* BufferedList_AddHead(BufferedList* list)
 {
