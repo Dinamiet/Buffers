@@ -2,9 +2,9 @@
 
 void LinkedList_Init(LinkedList* list) { list->Head = NULL; }
 
-bool LinkedList_Empty(LinkedList* list) { return list->Head == NULL; }
+bool LinkedList_Empty(const LinkedList* list) { return list->Head == NULL; }
 
-size_t LinkedList_Length(LinkedList* list)
+size_t LinkedList_Length(const LinkedList* list)
 {
 	if (LinkedList_Empty(list))
 		return 0;
@@ -19,19 +19,19 @@ size_t LinkedList_Length(LinkedList* list)
 	return count;
 }
 
-void* LinkedList_Head(LinkedList* list) { return list->Head; }
+void* LinkedList_Head(const LinkedList* list) { return list->Head; }
 
-void* LinkedList_Tail(LinkedList* list) { return list->Head ? list->Head->Prev : NULL; }
+void* LinkedList_Tail(const LinkedList* list) { return list->Head ? list->Head->Prev : NULL; }
 
-void* LinkedList_Next(void* _node)
+void* LinkedList_Next(const void* _node)
 {
-	Node* node = _node;
+	const Node* node = _node;
 	return node ? node->Next : NULL;
 }
 
-void* LinkedList_Prev(void* _node)
+void* LinkedList_Prev(const void* _node)
 {
-	Node* node = _node;
+	const Node* node = _node;
 	return node ? node->Prev : NULL;
 }
 

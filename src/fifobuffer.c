@@ -1,6 +1,6 @@
 #include "fifobuffer.h"
 
-void FifoBuffer_Init(FifoBuffer* fifo, void* buff, size_t elementSize, size_t numElements)
+void FifoBuffer_Init(FifoBuffer* fifo, void* buff, const size_t elementSize, const size_t numElements)
 {
 	fifo->Buffer      = buff;
 	fifo->ElementSize = elementSize;
@@ -8,11 +8,11 @@ void FifoBuffer_Init(FifoBuffer* fifo, void* buff, size_t elementSize, size_t nu
 	FifoBuffer_Clear(fifo);
 }
 
-bool FifoBuffer_Full(FifoBuffer* fifo) { return (fifo->AddIndex == fifo->RemoveIndex) && fifo->LastAdd; }
+bool FifoBuffer_Full(const FifoBuffer* fifo) { return (fifo->AddIndex == fifo->RemoveIndex) && fifo->LastAdd; }
 
-bool FifoBuffer_Empty(FifoBuffer* fifo) { return (fifo->AddIndex == fifo->RemoveIndex) && !fifo->LastAdd; }
+bool FifoBuffer_Empty(const FifoBuffer* fifo) { return (fifo->AddIndex == fifo->RemoveIndex) && !fifo->LastAdd; }
 
-size_t FifoBuffer_Used(FifoBuffer* fifo)
+size_t FifoBuffer_Used(const FifoBuffer* fifo)
 {
 	if (FifoBuffer_Empty(fifo))
 		return 0;
@@ -24,7 +24,7 @@ size_t FifoBuffer_Used(FifoBuffer* fifo)
 		return fifo->NumElements - FifoBuffer_Free(fifo);
 }
 
-size_t FifoBuffer_Free(FifoBuffer* fifo)
+size_t FifoBuffer_Free(const FifoBuffer* fifo)
 {
 	if (FifoBuffer_Full(fifo))
 		return 0;

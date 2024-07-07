@@ -30,35 +30,35 @@ typedef struct _LifoBuffer_
  * \param elementSize Size (in bytes) of a single buffer element
  * \param numElement Total number of elements that can be stored in the buffer
  */
-void LifoBuffer_Init(LifoBuffer* lifo, void* buff, size_t elementSize, size_t numElements);
+void LifoBuffer_Init(LifoBuffer* lifo, void* buff, const size_t elementSize, const size_t numElements);
 
 /**
  * Check if buffer is full
  * \param lifo Buffer to check
  * \return True if lifo is full, false otherwise
  */
-bool LifoBuffer_Full(LifoBuffer* lifo);
+bool LifoBuffer_Full(const LifoBuffer* lifo);
 
 /**
  * Check if buffer is empty
  * \param lifo Buffer to check
  * \return True if lifo is empty, false otherwise
  */
-bool LifoBuffer_Empty(LifoBuffer* lifo);
+bool LifoBuffer_Empty(const LifoBuffer* lifo);
 
 /**
  * Get the number of used elements from a buffer
  * \param lifo Buffer to check usage
  * \return Number of elements active in the buffer
  */
-size_t LifoBuffer_Used(LifoBuffer* lifo);
+size_t LifoBuffer_Used(const LifoBuffer* lifo);
 
 /**
  * Get the number of free elements for a buffer
  * \param lifo Buffer to check usage
  * \return Number of elements not used by the buffer
  */
-size_t LifoBuffer_Free(LifoBuffer* lifo);
+size_t LifoBuffer_Free(const LifoBuffer* lifo);
 
 /**
  * Add an element to the lifo

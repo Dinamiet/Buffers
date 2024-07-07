@@ -1,6 +1,6 @@
 #include "lifobuffer.h"
 
-void LifoBuffer_Init(LifoBuffer* lifo, void* buff, size_t elementSize, size_t numElements)
+void LifoBuffer_Init(LifoBuffer* lifo, void* buff, const size_t elementSize, const size_t numElements)
 {
 	lifo->Buffer      = buff;
 	lifo->ElementSize = elementSize;
@@ -8,13 +8,13 @@ void LifoBuffer_Init(LifoBuffer* lifo, void* buff, size_t elementSize, size_t nu
 	LifoBuffer_Clear(lifo);
 }
 
-bool LifoBuffer_Full(LifoBuffer* lifo) { return (lifo->WorkingIndex == lifo->NumElements); }
+bool LifoBuffer_Full(const LifoBuffer* lifo) { return (lifo->WorkingIndex == lifo->NumElements); }
 
-bool LifoBuffer_Empty(LifoBuffer* lifo) { return (lifo->WorkingIndex == 0); }
+bool LifoBuffer_Empty(const LifoBuffer* lifo) { return (lifo->WorkingIndex == 0); }
 
-size_t LifoBuffer_Used(LifoBuffer* lifo) { return lifo->WorkingIndex; }
+size_t LifoBuffer_Used(const LifoBuffer* lifo) { return lifo->WorkingIndex; }
 
-size_t LifoBuffer_Free(LifoBuffer* lifo) { return lifo->NumElements - lifo->WorkingIndex; }
+size_t LifoBuffer_Free(const LifoBuffer* lifo) { return lifo->NumElements - lifo->WorkingIndex; }
 
 void* LifoBuffer_Add(LifoBuffer* lifo)
 {

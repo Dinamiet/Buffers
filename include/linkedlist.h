@@ -38,42 +38,42 @@ void LinkedList_Init(LinkedList* list);
  * \param list List to check
  * \return True if list contains no nodes, false otherwise
  */
-bool LinkedList_Empty(LinkedList* list);
+bool LinkedList_Empty(const LinkedList* list);
 
 /**
  * Get the length/number of nodes of list
  * \param list List to check
  * \return Number of nodes contained in list
  */
-size_t LinkedList_Length(LinkedList* list);
+size_t LinkedList_Length(const LinkedList* list);
 
 /**
  * The first node of the list
  * \param list List to use
  * \return Reference to the first node of list, NULL if list does not contain any nodes
  */
-void* LinkedList_Head(LinkedList* list);
+void* LinkedList_Head(const LinkedList* list);
 
 /**
  * The last node of the list
  * \param list List to use
  * \return Reference to the last node of list, NULL if list does not contain any nodes
  */
-void* LinkedList_Tail(LinkedList* list);
+void* LinkedList_Tail(const LinkedList* list);
 
 /**
  * The next node
  * \param node Current node
  * \return Reference to the node after node
  */
-void* LinkedList_Next(void* node);
+void* LinkedList_Next(const void* node);
 
 /**
  * The previous node
  * \param node Current node
  * \return Reference to the node before node
  */
-void* LinkedList_Prev(void* node);
+void* LinkedList_Prev(const void* node);
 
 /**
  * Add an node to the start of the list
