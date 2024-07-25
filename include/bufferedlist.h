@@ -91,28 +91,28 @@ void* BufferedList_Prev(const void* node);
  * \param list List to which a element/node will be added
  * \return Reference to the newly added node/element, NULL if no node/element could be added
  */
-void* BufferedList_AddHead(BufferedList* list);
+void* BufferedList_AddStart(BufferedList* list);
 
 /**
  * Add element/node to the end of the list
  * \param list List to which a element/node will be added
  * \return Reference to the newly added node/element, NULL if no node/element could be added
  */
-void* BufferedList_AddTail(BufferedList* list);
+void* BufferedList_AddEnd(BufferedList* list);
 
 /**
  * Remove an element/node from the beginning of the list
  * \param list List from which to remove
  * \return Reference to the removed element/node, NULL if no node/element could be removed
  */
-void* BufferedList_RemoveHead(BufferedList* list);
+void* BufferedList_RemoveFirst(BufferedList* list);
 
 /**
  * Remove an element/node from the end of the list
  * \param list List from which to remove
  * \return Reference to the removed element/node, NULL if no node/element could be removed
  */
-void* BufferedList_RemoveTail(BufferedList* list);
+void* BufferedList_RemoveLast(BufferedList* list);
 
 /**
  * Add node/element after a specific node/element in the list
@@ -128,7 +128,7 @@ void* BufferedList_AddAfter(BufferedList* list, void* afterNode);
  * \param node Node/element to remove
  * \return Reference to removed node/element
  */
-void* BufferedList_RemoveNode(BufferedList* list, void* node);
+void* BufferedList_Remove(BufferedList* list, void* node);
 
 /**
  * Clear/Empties the list of all used nodes/elements, all nodes/elements will be marked as unused

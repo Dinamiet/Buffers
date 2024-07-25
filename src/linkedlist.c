@@ -19,9 +19,9 @@ size_t LinkedList_Length(const LinkedList* list)
 	return count;
 }
 
-void* LinkedList_Head(const LinkedList* list) { return list->Head; }
+void* LinkedList_First(const LinkedList* list) { return list->Head; }
 
-void* LinkedList_Tail(const LinkedList* list) { return list->Head ? list->Head->Prev : NULL; }
+void* LinkedList_Last(const LinkedList* list) { return list->Head ? list->Head->Prev : NULL; }
 
 void* LinkedList_Next(const void* _node)
 {
@@ -51,7 +51,7 @@ void* LinkedList_AddAfter(void* _afterNode, void* _node)
 	return node;
 }
 
-void* LinkedList_AddHead(LinkedList* list, void* _node)
+void* LinkedList_AddStart(LinkedList* list, void* _node)
 {
 	Node* node = _node;
 	if (!node)
@@ -64,7 +64,7 @@ void* LinkedList_AddHead(LinkedList* list, void* _node)
 	return list->Head;
 }
 
-void* LinkedList_AddTail(LinkedList* list, void* _node)
+void* LinkedList_AddEnd(LinkedList* list, void* _node)
 {
 	Node* node = _node;
 	if (!list->Head)
@@ -73,7 +73,7 @@ void* LinkedList_AddTail(LinkedList* list, void* _node)
 	return LinkedList_AddAfter(list->Head->Prev, node);
 }
 
-void* LinkedList_RemoveNode(LinkedList* list, void* _node)
+void* LinkedList_Remove(LinkedList* list, void* _node)
 {
 	Node* node = _node;
 	if (!node)
@@ -95,9 +95,9 @@ void* LinkedList_RemoveNode(LinkedList* list, void* _node)
 	return node;
 }
 
-void* LinkedList_RemoveHead(LinkedList* list) { return LinkedList_RemoveNode(list, list->Head); }
+void* LinkedList_RemoveFirst(LinkedList* list) { return LinkedList_Remove(list, list->Head); }
 
-void* LinkedList_RemoveTail(LinkedList* list) { return LinkedList_RemoveNode(list, list->Head->Prev); }
+void* LinkedList_RemoveLast(LinkedList* list) { return LinkedList_Remove(list, list->Head->Prev); }
 
 void LinkedList_Clear(LinkedList* list) { list->Head = NULL; }
 
