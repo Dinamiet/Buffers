@@ -1,11 +1,25 @@
 #include "linkedlist.h"
 
-void LinkedList_Init(LinkedList* list) { list->Head = NULL; }
+#include <assert.h>
 
-bool LinkedList_Empty(const LinkedList* list) { return list->Head == NULL; }
+void LinkedList_Init(LinkedList* list)
+{
+	assert(list != NULL);
+
+	list->Head = NULL;
+}
+
+bool LinkedList_Empty(const LinkedList* list)
+{
+	assert(list != NULL);
+
+	return list->Head == NULL;
+}
 
 size_t LinkedList_Length(const LinkedList* list)
 {
+	assert(list != NULL);
+
 	if (LinkedList_Empty(list))
 		return 0;
 
@@ -19,9 +33,19 @@ size_t LinkedList_Length(const LinkedList* list)
 	return count;
 }
 
-void* LinkedList_First(const LinkedList* list) { return list->Head; }
+void* LinkedList_First(const LinkedList* list)
+{
+	assert(list != NULL);
 
-void* LinkedList_Last(const LinkedList* list) { return list->Head ? list->Head->Prev : NULL; }
+	return list->Head;
+}
+
+void* LinkedList_Last(const LinkedList* list)
+{
+	assert(list != NULL);
+
+	return list->Head ? list->Head->Prev : NULL;
+}
 
 void* LinkedList_Next(const void* _node)
 {
@@ -53,6 +77,8 @@ void* LinkedList_AddAfter(void* _afterNode, void* _node)
 
 void* LinkedList_AddStart(LinkedList* list, void* _node)
 {
+	assert(list != NULL);
+
 	Node* node = _node;
 	if (!node)
 		return NULL;
@@ -66,6 +92,8 @@ void* LinkedList_AddStart(LinkedList* list, void* _node)
 
 void* LinkedList_AddEnd(LinkedList* list, void* _node)
 {
+	assert(list != NULL);
+
 	Node* node = _node;
 	if (!list->Head)
 		return list->Head = node->Next = node->Prev = node;
@@ -75,6 +103,8 @@ void* LinkedList_AddEnd(LinkedList* list, void* _node)
 
 void* LinkedList_Remove(LinkedList* list, void* _node)
 {
+	assert(list != NULL);
+
 	Node* node = _node;
 	if (!node)
 		return NULL;
@@ -95,14 +125,32 @@ void* LinkedList_Remove(LinkedList* list, void* _node)
 	return node;
 }
 
-void* LinkedList_RemoveFirst(LinkedList* list) { return LinkedList_Remove(list, list->Head); }
+void* LinkedList_RemoveFirst(LinkedList* list)
+{
+	assert(list != NULL);
 
-void* LinkedList_RemoveLast(LinkedList* list) { return LinkedList_Remove(list, list->Head->Prev); }
+	return LinkedList_Remove(list, list->Head);
+}
 
-void LinkedList_Clear(LinkedList* list) { list->Head = NULL; }
+void* LinkedList_RemoveLast(LinkedList* list)
+{
+	assert(list != NULL);
+
+	return LinkedList_Remove(list, list->Head->Prev);
+}
+
+void LinkedList_Clear(LinkedList* list)
+{
+	assert(list != NULL);
+
+	list->Head = NULL;
+}
 
 void LinkedList_Merge(LinkedList* list, LinkedList* other)
 {
+	assert(list != NULL);
+	assert(other != NULL);
+
 	if (LinkedList_Empty(other)) // No need to do anything
 		return;
 
