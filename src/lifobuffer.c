@@ -45,6 +45,7 @@ size_t LifoBuffer_Free(const LifoBuffer* lifo)
 void* LifoBuffer_Add(LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
+	assert(lifo->Buffer != NULL);
 
 	if (LifoBuffer_Full(lifo))
 		return NULL;
@@ -57,6 +58,7 @@ void* LifoBuffer_Add(LifoBuffer* lifo)
 void* LifoBuffer_Remove(LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
+	assert(lifo->Buffer != NULL);
 
 	if (LifoBuffer_Empty(lifo))
 		return NULL;

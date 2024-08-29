@@ -59,6 +59,7 @@ size_t FifoBuffer_Free(const FifoBuffer* fifo)
 void* FifoBuffer_Add(FifoBuffer* fifo)
 {
 	assert(fifo != NULL);
+	assert(fifo->Buffer != NULL);
 
 	if (FifoBuffer_Full(fifo))
 		return NULL;
@@ -76,6 +77,7 @@ void* FifoBuffer_Add(FifoBuffer* fifo)
 void* FifoBuffer_Remove(FifoBuffer* fifo)
 {
 	assert(fifo != NULL);
+	assert(fifo->Buffer != NULL);
 
 	if (FifoBuffer_Empty(fifo))
 		return NULL;
