@@ -30,34 +30,37 @@ bool FifoBuffer_Empty(const FifoBuffer* fifo)
 	return (fifo->AddAddress == fifo->RemoveAddress) && !fifo->LastAdd;
 }
 
-/** TODO: Check if this function can use less if statements */
 size_t FifoBuffer_Used(const FifoBuffer* fifo)
 {
 	assert(fifo != NULL);
+	assert(fifo->Start != NULL); // Init check
 
-	if (FifoBuffer_Empty(fifo))
-		return 0;
-	else if (FifoBuffer_Full(fifo))
-		return fifo->Size;
-	else if (fifo->AddAddress > fifo->RemoveAddress)
-		return fifo->AddAddress - fifo->RemoveAddress;
-	else
-		return fifo->Size - FifoBuffer_Free(fifo);
+	size_t size = fifo->End - fifo->Start;
+
+	if (fifo->AddAddress == fifo->RemoveAddress)
+		return fifo->LastAdd ? size : 0;
+
+	size_t used = fifo->AddAddress - fifo->RemoveAddress;
+	if (fifo->AddAddress < fifo->RemoveAddress)
+		used += size;
+
+	return used;
 }
 
-/** TODO: Check if this function can use less if statements */
 size_t FifoBuffer_Free(const FifoBuffer* fifo)
 {
 	assert(fifo != NULL);
+	assert(fifo->Start != NULL); // Init check
 
-	if (FifoBuffer_Full(fifo))
-		return 0;
-	else if (FifoBuffer_Empty(fifo))
-		return fifo->Size;
-	else if (fifo->AddAddress < fifo->RemoveAddress)
-		return fifo->RemoveAddress - fifo->AddAddress;
-	else
-		return fifo->Size - FifoBuffer_Used(fifo);
+	size_t size = fifo->End - fifo->Start;
+	if (fifo->RemoveAddress == fifo->AddAddress)
+		return (!fifo->LastAdd) ? size : 0;
+
+	size_t free = fifo->RemoveAddress - fifo->AddAddress;
+	if (fifo->RemoveAddress < fifo->AddAddress)
+		free += size;
+
+	return free;
 }
 
 size_t FifoBuffer_Add(FifoBuffer* fifo, void* _data, size_t size)
