@@ -3,12 +3,12 @@
 #include <assert.h>
 #include <string.h>
 
-void LifoBuffer_Init(LifoBuffer* lifo, void* buffer, const size_t size)
+void LifoBuffer_Init(LifoBuffer* lifo, void* buff, const size_t size)
 {
 	assert(lifo != NULL);
-	assert(buffer != NULL);
+	assert(buff != NULL);
 
-	lifo->Start = buffer;
+	lifo->Start = buff;
 	lifo->End   = lifo->Start + size;
 	LifoBuffer_Clear(lifo);
 }
@@ -41,7 +41,7 @@ size_t LifoBuffer_Free(const LifoBuffer* lifo)
 	return lifo->End - lifo->WorkingAddress;
 }
 
-size_t LifoBuffer_Add(LifoBuffer* lifo, void* data, size_t size)
+size_t LifoBuffer_Add(LifoBuffer* lifo, const void* data, const size_t size)
 {
 	assert(lifo != NULL);
 	assert(lifo->Start != NULL);
@@ -63,7 +63,7 @@ size_t LifoBuffer_Add(LifoBuffer* lifo, void* data, size_t size)
 	return size;
 }
 
-size_t LifoBuffer_Remove(LifoBuffer* lifo, void* data, size_t size)
+size_t LifoBuffer_Remove(LifoBuffer* lifo, void* data, const size_t size)
 {
 	assert(lifo != NULL);
 	assert(lifo->Start != NULL);

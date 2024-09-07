@@ -3,13 +3,13 @@
 #include <assert.h>
 #include <string.h>
 
-void FifoBuffer_Init(FifoBuffer* fifo, void* buffer, const size_t size)
+void FifoBuffer_Init(FifoBuffer* fifo, void* buff, const size_t size)
 {
 	assert(fifo != NULL);
-	assert(buffer != NULL);
+	assert(buff != NULL);
 	assert(size > 0);
 
-	fifo->Start = buffer;
+	fifo->Start = buff;
 	fifo->End   = fifo->Start + size;
 
 	FifoBuffer_Clear(fifo);
@@ -62,13 +62,13 @@ size_t FifoBuffer_Free(const FifoBuffer* fifo)
 	return free;
 }
 
-size_t FifoBuffer_Add(FifoBuffer* fifo, void* _data, size_t size)
+size_t FifoBuffer_Add(FifoBuffer* fifo, const void* _data, const size_t size)
 {
 	assert(fifo != NULL);
 	assert(fifo->Start != NULL);
 	assert(_data != NULL);
 
-	uint8_t* data = _data;
+	const uint8_t* data = _data;
 
 	if (FifoBuffer_Full(fifo))
 		return 0;
@@ -99,7 +99,7 @@ size_t FifoBuffer_Add(FifoBuffer* fifo, void* _data, size_t size)
 	return size;
 }
 
-size_t FifoBuffer_Remove(FifoBuffer* fifo, void* _data, size_t size)
+size_t FifoBuffer_Remove(FifoBuffer* fifo, void* _data, const size_t size)
 {
 	assert(fifo != NULL);
 	assert(fifo->Start != NULL);

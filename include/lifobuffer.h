@@ -28,7 +28,7 @@ typedef struct _LifoBuffer_
  * \param buffer Memory to be used as a Lifo
  * \param size Size of the buffer (in bytes)
  */
-void LifoBuffer_Init(LifoBuffer* lifo, void* buffer, const size_t size);
+void LifoBuffer_Init(LifoBuffer* lifo, void* buff, const size_t size);
 
 /**
  * Check if buffer is full
@@ -65,7 +65,7 @@ size_t LifoBuffer_Free(const LifoBuffer* lifo);
  * \param size The number of bytes to add
  * \return Number of bytes added
  */
-size_t LifoBuffer_Add(LifoBuffer* lifo, void* data, size_t size);
+size_t LifoBuffer_Add(LifoBuffer* lifo, const void* data, const size_t size);
 
 /**
  * Remove elements from the lifo and place them in data
@@ -74,7 +74,7 @@ size_t LifoBuffer_Add(LifoBuffer* lifo, void* data, size_t size);
  * \param size The number of bytes to remove
  * \return Number of bytes removed
  */
-size_t LifoBuffer_Remove(LifoBuffer* lifo, void* data, size_t size);
+size_t LifoBuffer_Remove(LifoBuffer* lifo, void* data, const size_t size);
 
 /**
  * Clear lifo of all used elements

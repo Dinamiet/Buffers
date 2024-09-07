@@ -30,7 +30,7 @@ typedef struct
  * \param buffer Memory to be used as a Fifo
  * \param size The size (bytes) of the buffer
  */
-void FifoBuffer_Init(FifoBuffer* fifo, void* buffer, const size_t size);
+void FifoBuffer_Init(FifoBuffer* fifo, void* buff, const size_t size);
 
 /**
  * Check if buffer is full
@@ -67,7 +67,7 @@ size_t FifoBuffer_Free(const FifoBuffer* fifo);
  * \param size The number of bytes to add
  * \return Number of bytes added
  */
-size_t FifoBuffer_Add(FifoBuffer* fifo, void* data, size_t size);
+size_t FifoBuffer_Add(FifoBuffer* fifo, const void* data, const size_t size);
 
 /**
  * Remove an element from the fifo
@@ -76,7 +76,7 @@ size_t FifoBuffer_Add(FifoBuffer* fifo, void* data, size_t size);
  * \param size Number of bytes to remove from Fifo
  * \return Number of bytes removed
  */
-size_t FifoBuffer_Remove(FifoBuffer* fifo, void* data, size_t size);
+size_t FifoBuffer_Remove(FifoBuffer* fifo, void* data, const size_t size);
 
 /**
  * Clear fifo of all used elements
