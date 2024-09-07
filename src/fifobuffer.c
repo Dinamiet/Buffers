@@ -2,15 +2,16 @@
 
 #include <assert.h>
 
-void FifoBuffer_Init(FifoBuffer* fifo, void* buff, const size_t elementSize, const size_t numElements)
+void FifoBuffer_Init(FifoBuffer* fifo, void* buff, const size_t size)
 {
 	assert(fifo != NULL);
 	assert(buff != NULL);
-	assert(elementSize > 0);
+	assert(size > 0);
 
-	fifo->Buffer      = buff;
-	fifo->ElementSize = elementSize;
-	fifo->NumElements = numElements;
+	fifo->Start = buff;
+	fifo->End   = buff + size;
+	fifo->Size  = size;
+
 	FifoBuffer_Clear(fifo);
 }
 
@@ -18,14 +19,14 @@ bool FifoBuffer_Full(const FifoBuffer* fifo)
 {
 	assert(fifo != NULL);
 
-	return (fifo->AddIndex == fifo->RemoveIndex) && fifo->LastAdd;
+	return (fifo->AddAddress == fifo->RemoveAddress) && fifo->LastAdd;
 }
 
 bool FifoBuffer_Empty(const FifoBuffer* fifo)
 {
 	assert(fifo != NULL);
 
-	return (fifo->AddIndex == fifo->RemoveIndex) && !fifo->LastAdd;
+	return (fifo->AddAddress == fifo->RemoveAddress) && !fifo->LastAdd;
 }
 
 size_t FifoBuffer_Used(const FifoBuffer* fifo)
@@ -35,11 +36,11 @@ size_t FifoBuffer_Used(const FifoBuffer* fifo)
 	if (FifoBuffer_Empty(fifo))
 		return 0;
 	else if (FifoBuffer_Full(fifo))
-		return fifo->NumElements;
-	else if (fifo->AddIndex > fifo->RemoveIndex)
-		return fifo->AddIndex - fifo->RemoveIndex;
+		return fifo->Size;
+	else if (fifo->AddAddress > fifo->RemoveAddress)
+		return fifo->AddAddress - fifo->RemoveAddress;
 	else
-		return fifo->NumElements - FifoBuffer_Free(fifo);
+		return fifo->Size - FifoBuffer_Free(fifo);
 }
 
 size_t FifoBuffer_Free(const FifoBuffer* fifo)
@@ -49,11 +50,11 @@ size_t FifoBuffer_Free(const FifoBuffer* fifo)
 	if (FifoBuffer_Full(fifo))
 		return 0;
 	else if (FifoBuffer_Empty(fifo))
-		return fifo->NumElements;
-	else if (fifo->AddIndex < fifo->RemoveIndex)
-		return fifo->RemoveIndex - fifo->AddIndex;
+		return fifo->Size;
+	else if (fifo->AddAddress < fifo->RemoveAddress)
+		return fifo->RemoveAddress - fifo->AddAddress;
 	else
-		return fifo->NumElements - FifoBuffer_Used(fifo);
+		return fifo->Size - FifoBuffer_Used(fifo);
 }
 
 void* FifoBuffer_Add(FifoBuffer* fifo)
@@ -96,7 +97,6 @@ void FifoBuffer_Clear(FifoBuffer* fifo)
 {
 	assert(fifo != NULL);
 
-	fifo->AddIndex    = 0;
-	fifo->RemoveIndex = 0;
+	fifo->AddAddress = fifo->RemoveAddress = fifo->Start;
 	fifo->LastAdd     = false;
 }

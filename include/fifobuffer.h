@@ -17,22 +17,19 @@
  */
 typedef struct
 {
-	uint8_t* Buffer;
-	size_t   ElementSize;
-	size_t   NumElements;
-	size_t   AddIndex;
-	size_t   RemoveIndex;
+	uint8_t* Start;
+	uint8_t* End;
+	uint8_t* AddAddress;
+	uint8_t* RemoveAddress;
+	size_t   Size;
 	bool     LastAdd;
 } FifoBuffer;
 
 /**
  * Initializes a FifoBuffer
- * \param fifo Buffer to initialize
- * \param buff Memory to use for the buffer
- * \param elementSize Size (in bytes) of a single buffer element
- * \param numElement Total number of elements that can be stored in the buffer
+ * TODO: Docs
  */
-void FifoBuffer_Init(FifoBuffer* fifo, void* buff, const size_t elementSize, const size_t numElements);
+void FifoBuffer_Init(FifoBuffer* fifo, void* buff, const size_t size);
 
 /**
  * Check if buffer is full
@@ -51,30 +48,28 @@ bool FifoBuffer_Empty(const FifoBuffer* fifo);
 /**
  * Get the number of used elements from a buffer
  * \param fifo Buffer to check usage
- * \return Number of elements active in the buffer
+ * \return Number of bytes in the buffer
  */
 size_t FifoBuffer_Used(const FifoBuffer* fifo);
 
 /**
  * Get the number of free elements for a buffer
  * \param fifo Buffer to check usage
- * \return Number of elements not used by the buffer
+ * \return Number of bytes not used by the buffer
  */
 size_t FifoBuffer_Free(const FifoBuffer* fifo);
 
 /**
  * Add an element to the fifo
- * \param fifo Buffer to which an element must be added
- * \return Reference to the newly added element, NULL if no element could be allocated/added
+ * TODO: Docs
  */
-void* FifoBuffer_Add(FifoBuffer* fifo);
+size_t FifoBuffer_Add(FifoBuffer* fifo, void* data, size_t size);
 
 /**
  * Remove an element from the fifo
- * \param fifo Buffer from which to remove an element
- * \return Reference to the removed element, NULL if no element could be removed
+ * TODO: Docs
  */
-void* FifoBuffer_Remove(FifoBuffer* fifo);
+size_t FifoBuffer_Remove(FifoBuffer* fifo, void* data, size_t size);
 
 /**
  * Clear fifo of all used elements
