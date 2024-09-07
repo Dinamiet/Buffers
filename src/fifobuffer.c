@@ -11,7 +11,6 @@ void FifoBuffer_Init(FifoBuffer* fifo, void* buffer, const size_t size)
 
 	fifo->Start = buffer;
 	fifo->End   = fifo->Start + size;
-	fifo->Size  = size;
 
 	FifoBuffer_Clear(fifo);
 }
@@ -77,7 +76,7 @@ size_t FifoBuffer_Add(FifoBuffer* fifo, void* _data, size_t size)
 	fifo->LastAdd = true;
 
 	// Check how much can be copied without overrunning
-	ssize_t spaceToEnd = fifo->End - fifo->AddAddress;
+	size_t spaceToEnd = fifo->End - fifo->AddAddress;
 	if (fifo->RemoveAddress > fifo->AddAddress)
 		spaceToEnd = fifo->RemoveAddress - fifo->AddAddress;
 
@@ -87,6 +86,7 @@ size_t FifoBuffer_Add(FifoBuffer* fifo, void* _data, size_t size)
 		fifo->AddAddress += spaceToEnd;
 		if (fifo->AddAddress >= fifo->End) // Wrap around
 			fifo->AddAddress = fifo->Start;
+
 		return spaceToEnd + FifoBuffer_Add(fifo, &data[spaceToEnd], size - spaceToEnd);
 	}
 
@@ -95,6 +95,7 @@ size_t FifoBuffer_Add(FifoBuffer* fifo, void* _data, size_t size)
 	fifo->AddAddress += size;
 	if (fifo->AddAddress >= fifo->End) // Wrap around
 		fifo->AddAddress = fifo->Start;
+
 	return size;
 }
 
@@ -111,6 +112,7 @@ size_t FifoBuffer_Remove(FifoBuffer* fifo, void* _data, size_t size)
 
 	fifo->LastAdd = false;
 
+	// Check how much can be copied without overrunning
 	size_t spaceToEnd = fifo->End - fifo->RemoveAddress;
 	if (fifo->AddAddress > fifo->RemoveAddress)
 		spaceToEnd = fifo->AddAddress - fifo->RemoveAddress;
@@ -121,6 +123,7 @@ size_t FifoBuffer_Remove(FifoBuffer* fifo, void* _data, size_t size)
 		fifo->RemoveAddress += spaceToEnd;
 		if (fifo->RemoveAddress >= fifo->End)
 			fifo->RemoveAddress = fifo->Start;
+
 		return spaceToEnd + FifoBuffer_Add(fifo, &data[spaceToEnd], size - spaceToEnd);
 	}
 

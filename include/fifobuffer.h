@@ -21,7 +21,6 @@ typedef struct
 	uint8_t* End;
 	uint8_t* AddAddress;
 	uint8_t* RemoveAddress;
-	size_t   Size;
 	bool     LastAdd;
 } FifoBuffer;
 
