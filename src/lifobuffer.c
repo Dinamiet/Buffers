@@ -2,15 +2,13 @@
 
 #include <assert.h>
 
-void LifoBuffer_Init(LifoBuffer* lifo, void* buff, const size_t elementSize, const size_t numElements)
+void LifoBuffer_Init(LifoBuffer* lifo, void* buffer, const size_t size)
 {
 	assert(lifo != NULL);
-	assert(buff != NULL);
-	assert(elementSize > 0);
+	assert(buffer != NULL);
 
-	lifo->Buffer      = buff;
-	lifo->ElementSize = elementSize;
-	lifo->NumElements = numElements;
+	lifo->Start = buffer;
+	lifo->End   = buffer + size;
 	LifoBuffer_Clear(lifo);
 }
 
@@ -18,34 +16,34 @@ bool LifoBuffer_Full(const LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	return (lifo->WorkingIndex == lifo->NumElements);
+	return (lifo->WorkingAddress == lifo->End);
 }
 
 bool LifoBuffer_Empty(const LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	return (lifo->WorkingIndex == 0);
+	return (lifo->WorkingAddress == lifo->Start);
 }
 
 size_t LifoBuffer_Used(const LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	return lifo->WorkingIndex;
+	return lifo->WorkingAddress - lifo->Start;
 }
 
 size_t LifoBuffer_Free(const LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	return lifo->NumElements - lifo->WorkingIndex;
+	return lifo->End - lifo->WorkingAddress;
 }
 
 void* LifoBuffer_Add(LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
-	assert(lifo->Buffer != NULL);
+	assert(lifo->Start != NULL);
 
 	if (LifoBuffer_Full(lifo))
 		return NULL;
@@ -72,5 +70,5 @@ void LifoBuffer_Clear(LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	lifo->WorkingIndex = 0;
+	lifo->WorkingAddress = lifo->Start;
 }
