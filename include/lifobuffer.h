@@ -17,20 +17,18 @@
  */
 typedef struct _LifoBuffer_
 {
-	uint8_t* Buffer;
-	size_t   ElementSize;
-	size_t   NumElements;
-	size_t   WorkingIndex;
+	uint8_t* Start;
+	uint8_t* End;
+	uint8_t* WorkingAddress;
 } LifoBuffer;
 
 /**
  * Initializes a LifoBuffer
- * \param lifo Buffer to initialize
- * \param buff Memory to use for the buffer
- * \param elementSize Size (in bytes) of a single buffer element
- * \param numElement Total number of elements that can be stored in the buffer
+ * \param lifo Buffer entity to initialize
+ * \param buffer Memory to be used as a Lifo
+ * \param size Size of the buffer (in bytes)
  */
-void LifoBuffer_Init(LifoBuffer* lifo, void* buff, const size_t elementSize, const size_t numElements);
+void LifoBuffer_Init(LifoBuffer* lifo, void* buffer, const size_t size);
 
 /**
  * Check if buffer is full
@@ -61,18 +59,22 @@ size_t LifoBuffer_Used(const LifoBuffer* lifo);
 size_t LifoBuffer_Free(const LifoBuffer* lifo);
 
 /**
- * Add an element to the lifo
- * \param lifo Buffer to which an element must be added
- * \return Reference to the newly added element, NULL if no element could be allocated/added
+ * Add data to the lifo
+ * \param lifo The Lifo to add data to
+ * \param data The data to add to the Lifo
+ * \param size The number of bytes to add
+ * \return Number of bytes added
  */
-void* LifoBuffer_Add(LifoBuffer* lifo);
+size_t LifoBuffer_Add(LifoBuffer* lifo, void* data, size_t size);
 
 /**
- * Remove an element from the lifo
- * \param lifo Buffer from which to remove an element
- * \return Reference to the removed element, NULL if no element could be removed
+ * Remove elements from the lifo and place them in data
+ * \param lifo The Lifo from which to remove data
+ * \param data Storage where removed data will be placed
+ * \param size The number of bytes to remove
+ * \return Number of bytes removed
  */
-void* LifoBuffer_Remove(LifoBuffer* lifo);
+size_t LifoBuffer_Remove(LifoBuffer* lifo, void* data, size_t size);
 
 /**
  * Clear lifo of all used elements

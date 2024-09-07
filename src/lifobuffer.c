@@ -1,16 +1,15 @@
 #include "lifobuffer.h"
 
 #include <assert.h>
+#include <string.h>
 
-void LifoBuffer_Init(LifoBuffer* lifo, void* buff, const size_t elementSize, const size_t numElements)
+void LifoBuffer_Init(LifoBuffer* lifo, void* buffer, const size_t size)
 {
 	assert(lifo != NULL);
-	assert(buff != NULL);
-	assert(elementSize > 0);
+	assert(buffer != NULL);
 
-	lifo->Buffer      = buff;
-	lifo->ElementSize = elementSize;
-	lifo->NumElements = numElements;
+	lifo->Start = buffer;
+	lifo->End   = lifo->Start + size;
 	LifoBuffer_Clear(lifo);
 }
 
@@ -18,59 +17,76 @@ bool LifoBuffer_Full(const LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	return (lifo->WorkingIndex == lifo->NumElements);
+	return (lifo->WorkingAddress == lifo->End);
 }
 
 bool LifoBuffer_Empty(const LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	return (lifo->WorkingIndex == 0);
+	return (lifo->WorkingAddress == lifo->Start);
 }
 
 size_t LifoBuffer_Used(const LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	return lifo->WorkingIndex;
+	return lifo->WorkingAddress - lifo->Start;
 }
 
 size_t LifoBuffer_Free(const LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	return lifo->NumElements - lifo->WorkingIndex;
+	return lifo->End - lifo->WorkingAddress;
 }
 
-void* LifoBuffer_Add(LifoBuffer* lifo)
+size_t LifoBuffer_Add(LifoBuffer* lifo, void* data, size_t size)
 {
 	assert(lifo != NULL);
-	assert(lifo->Buffer != NULL);
+	assert(lifo->Start != NULL);
 
-	if (LifoBuffer_Full(lifo))
-		return NULL;
+	size_t spaceAvailable = LifoBuffer_Free(lifo);
 
-	size_t offset = lifo->WorkingIndex++ * lifo->ElementSize;
+	if (!spaceAvailable)
+		return 0;
 
-	return lifo->Buffer + offset;
+	if (size > spaceAvailable)
+	{
+		memcpy(lifo->WorkingAddress, data, spaceAvailable);
+		lifo->WorkingAddress += spaceAvailable;
+		return spaceAvailable;
+	}
+
+	memcpy(lifo->WorkingAddress, data, size);
+	lifo->WorkingAddress += size;
+	return size;
 }
 
-void* LifoBuffer_Remove(LifoBuffer* lifo)
+size_t LifoBuffer_Remove(LifoBuffer* lifo, void* data, size_t size)
 {
 	assert(lifo != NULL);
-	assert(lifo->Buffer != NULL);
+	assert(lifo->Start != NULL);
 
-	if (LifoBuffer_Empty(lifo))
-		return NULL;
+	size_t spaceUsed = LifoBuffer_Used(lifo);
+	if (!spaceUsed)
+		return 0;
 
-	size_t offset = --lifo->WorkingIndex * lifo->ElementSize;
+	if (size > spaceUsed)
+	{
+		memcpy(data, lifo->WorkingAddress - spaceUsed, spaceUsed);
+		lifo->WorkingAddress -= spaceUsed;
+		return spaceUsed;
+	}
 
-	return lifo->Buffer + offset;
+	memcpy(data, lifo->WorkingAddress - size, size);
+	lifo->WorkingAddress -= size;
+	return size;
 }
 
 void LifoBuffer_Clear(LifoBuffer* lifo)
 {
 	assert(lifo != NULL);
 
-	lifo->WorkingIndex = 0;
+	lifo->WorkingAddress = lifo->Start;
 }
