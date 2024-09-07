@@ -124,7 +124,7 @@ size_t FifoBuffer_Remove(FifoBuffer* fifo, void* _data, size_t size)
 		if (fifo->RemoveAddress >= fifo->End)
 			fifo->RemoveAddress = fifo->Start;
 
-		return spaceToEnd + FifoBuffer_Add(fifo, &data[spaceToEnd], size - spaceToEnd);
+		return spaceToEnd + FifoBuffer_Remove(fifo, &data[spaceToEnd], size - spaceToEnd);
 	}
 
 	// No need to split copy
