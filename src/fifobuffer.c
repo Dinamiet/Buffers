@@ -71,6 +71,8 @@ size_t FifoBuffer_Add(FifoBuffer* fifo, void* _data, size_t size)
 	if (FifoBuffer_Full(fifo))
 		return 0;
 
+	fifo->LastAdd = true;
+
 	// Check how much can be copied without overrunning
 	ssize_t spaceToEnd = fifo->End - fifo->AddAddress;
 	if (fifo->RemoveAddress > fifo->AddAddress)
@@ -103,6 +105,8 @@ size_t FifoBuffer_Remove(FifoBuffer* fifo, void* _data, size_t size)
 
 	if (FifoBuffer_Empty(fifo))
 		return 0;
+
+	fifo->LastAdd = false;
 
 	size_t spaceToEnd = fifo->End - fifo->RemoveAddress;
 	if (fifo->AddAddress > fifo->RemoveAddress)
