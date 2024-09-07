@@ -26,9 +26,11 @@ typedef struct
 
 /**
  * Initializes a FifoBuffer
- * TODO: Docs
+ * \param fifo Buffer entity to initialize
+ * \param buffer Memory to be used as a Fifo
+ * \param size The size (bytes) of the buffer
  */
-void FifoBuffer_Init(FifoBuffer* fifo, void* buff, const size_t size);
+void FifoBuffer_Init(FifoBuffer* fifo, void* buffer, const size_t size);
 
 /**
  * Check if buffer is full
@@ -60,13 +62,19 @@ size_t FifoBuffer_Free(const FifoBuffer* fifo);
 
 /**
  * Add an element to the fifo
- * TODO: Docs
+ * \param fifo The Fifo to add data to
+ * \param data The data to add to the Fifo
+ * \param size The number of bytes to add
+ * \return Number of bytes added
  */
 size_t FifoBuffer_Add(FifoBuffer* fifo, void* data, size_t size);
 
 /**
  * Remove an element from the fifo
- * TODO: Docs
+ * \param fifo The Fifo from which to remove data
+ * \param data Storage where removed data will be stored
+ * \param size Number of bytes to remove from Fifo
+ * \return Number of bytes removed
  */
 size_t FifoBuffer_Remove(FifoBuffer* fifo, void* data, size_t size);
 
