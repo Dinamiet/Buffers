@@ -77,6 +77,14 @@ size_t LifoBuffer_Add(LifoBuffer* lifo, const void* data, const size_t size);
 size_t LifoBuffer_Remove(LifoBuffer* lifo, void* data, const size_t size);
 
 /**
+ * Delete data from lfio
+ * \param lifo The lifo from which to delete data
+ * \param size Number of bytes to delete
+ * \return Number of bytes deleted
+ */
+size_t LifoBuffer_Delete(LifoBuffer* lifo, size_t size);
+
+/**
  * Clear lifo of all used elements
  * \param lifo Buffer to clear
  */

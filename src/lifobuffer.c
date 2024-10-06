@@ -45,6 +45,8 @@ size_t LifoBuffer_Add(LifoBuffer* lifo, const void* data, const size_t size)
 {
 	assert(lifo != NULL);
 	assert(lifo->Start != NULL);
+	assert(data != NULL);
+	assert(size > 0);
 
 	size_t spaceAvailable = LifoBuffer_Free(lifo);
 
@@ -67,6 +69,8 @@ size_t LifoBuffer_Remove(LifoBuffer* lifo, void* data, const size_t size)
 {
 	assert(lifo != NULL);
 	assert(lifo->Start != NULL);
+	assert(data != NULL);
+	assert(size > 0);
 
 	size_t spaceUsed = LifoBuffer_Used(lifo);
 	if (!spaceUsed)
@@ -82,6 +86,20 @@ size_t LifoBuffer_Remove(LifoBuffer* lifo, void* data, const size_t size)
 	memcpy(data, lifo->WorkingAddress - size, size);
 	lifo->WorkingAddress -= size;
 	return size;
+}
+
+size_t LifoBuffer_Delete(LifoBuffer* lifo, size_t size)
+{
+	assert(lifo != NULL);
+	assert(lifo->Start != NULL);
+
+	size_t spaceUsed = LifoBuffer_Used(lifo);
+	if (!spaceUsed)
+		return 0;
+
+	size_t removeable = size > spaceUsed ? spaceUsed : size;
+	lifo->WorkingAddress -= removeable;
+	return removeable;
 }
 
 void LifoBuffer_Clear(LifoBuffer* lifo)

@@ -70,13 +70,21 @@ size_t FifoBuffer_Free(const FifoBuffer* fifo);
 size_t FifoBuffer_Add(FifoBuffer* fifo, const void* data, const size_t size);
 
 /**
- * Remove an element from the fifo
+ * Remove data from fifo and place in data
  * \param fifo The Fifo from which to remove data
  * \param data Storage where removed data will be stored
  * \param size Number of bytes to remove from Fifo
  * \return Number of bytes removed
  */
 size_t FifoBuffer_Remove(FifoBuffer* fifo, void* data, const size_t size);
+
+/**
+ * Delete data from fifo
+ * \param fifo The fifo from which to delete data
+ * \param size Number of bytes to delete
+ * \return Number of bytes deleted
+ */
+size_t FifoBuffer_Delete(FifoBuffer* fifo, size_t size);
 
 /**
  * Clear fifo of all used elements
