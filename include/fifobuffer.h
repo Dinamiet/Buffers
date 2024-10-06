@@ -79,14 +79,6 @@ size_t FifoBuffer_Add(FifoBuffer* fifo, const void* data, const size_t size);
 size_t FifoBuffer_Remove(FifoBuffer* fifo, void* data, const size_t size);
 
 /**
- * Delete data from fifo
- * \param fifo The fifo from which to delete data
- * \param size Number of bytes to delete
- * \return Number of bytes deleted
- */
-size_t FifoBuffer_Delete(FifoBuffer* fifo, size_t size);
-
-/**
  * Clear fifo of all used elements
  * \param fifo Buffer to clear
  */

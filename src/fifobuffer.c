@@ -66,12 +66,13 @@ size_t FifoBuffer_Add(FifoBuffer* fifo, const void* _data, const size_t size)
 {
 	assert(fifo != NULL);
 	assert(fifo->Start != NULL);
-	assert(_data != NULL);
-	assert(size > 0);
 
 	const uint8_t* data = _data;
 
-	if (FifoBuffer_Full(fifo))
+	if (!data)
+		return 0;
+
+	if (FifoBuffer_Full(fifo) || size == 0)
 		return 0;
 
 	fifo->LastAdd = true;
@@ -104,12 +105,10 @@ size_t FifoBuffer_Remove(FifoBuffer* fifo, void* _data, const size_t size)
 {
 	assert(fifo != NULL);
 	assert(fifo->Start != NULL);
-	assert(_data != NULL);
-	assert(size > 0);
 
 	uint8_t* data = _data;
 
-	if (FifoBuffer_Empty(fifo))
+	if (FifoBuffer_Empty(fifo) || size == 0)
 		return 0;
 
 	fifo->LastAdd = false;
@@ -121,7 +120,8 @@ size_t FifoBuffer_Remove(FifoBuffer* fifo, void* _data, const size_t size)
 
 	if (spaceToEnd < size) // Have to split copy
 	{
-		memcpy(data, fifo->RemoveAddress, spaceToEnd);
+		if (data)
+			memcpy(data, fifo->RemoveAddress, spaceToEnd);
 		fifo->RemoveAddress += spaceToEnd;
 		if (fifo->RemoveAddress >= fifo->End)
 			fifo->RemoveAddress = fifo->Start;
@@ -130,35 +130,8 @@ size_t FifoBuffer_Remove(FifoBuffer* fifo, void* _data, const size_t size)
 	}
 
 	// No need to split copy
-	memcpy(data, fifo->RemoveAddress, size);
-	fifo->RemoveAddress += size;
-	if (fifo->RemoveAddress >= fifo->End)
-		fifo->RemoveAddress = fifo->Start;
-
-	return size;
-}
-
-size_t FifoBuffer_Delete(FifoBuffer* fifo, size_t size)
-{
-	if (FifoBuffer_Empty(fifo))
-		return 0;
-
-	fifo->LastAdd = false;
-
-	size_t spaceToEnd = fifo->End - fifo->RemoveAddress;
-	if (fifo->AddAddress > fifo->RemoveAddress)
-		spaceToEnd = fifo->AddAddress - fifo->RemoveAddress;
-
-	if (spaceToEnd < size) // Have to split
-	{
-		fifo->RemoveAddress += spaceToEnd;
-		if (fifo->RemoveAddress >= fifo->End)
-			fifo->RemoveAddress = fifo->Start;
-
-		return spaceToEnd + FifoBuffer_Delete(fifo, size - spaceToEnd);
-	}
-
-	// No need to split
+	if (data)
+		memcpy(data, fifo->RemoveAddress, size);
 	fifo->RemoveAddress += size;
 	if (fifo->RemoveAddress >= fifo->End)
 		fifo->RemoveAddress = fifo->Start;
