@@ -65,16 +65,13 @@ target_include_directories(
         include
 )
 
+file(GLOB_RECURSE INCLUDE_FILES CONFIGURE_DEPENDS "include/*.h")
+file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS "src/*.c")
+
 target_sources(
-    ${PROJECT_NAME}
-    PUBLIC  # All public source and header files listed here
-        include/linkedlist.h
-        include/bufferedlist.h
-        include/fifobuffer.h
-        include/lifobuffer.h
-    PRIVATE # All private source and header files listed here
-        src/linkedlist.c
-        src/bufferedlist.c
-        src/fifobuffer.c
-        src/lifobuffer.c
+	${PROJECT_NAME}
+	PUBLIC
+		${INCLUDE_FILES}
+	PRIVATE
+		${SOURCE_FILES}
 )
