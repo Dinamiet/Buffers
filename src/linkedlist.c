@@ -94,6 +94,9 @@ void* LinkedList_AddEnd(LinkedList* list, void* _node)
 {
 	assert(list != NULL);
 
+	if (!_node)
+		return NULL;
+
 	Node* node = _node;
 	if (!list->Head)
 		return list->Head = node->Next = node->Prev = node;
